@@ -1,0 +1,19 @@
+﻿# Arquivos e diretórios de build, IDE e temporários que não devem ser versionados.
+
+# Diretório de compilação do Maven
+target/
+
+# Arquivos de IDE (NetBeans)
+nbproject/
+nbactions.xml
+
+# Arquivos de metadados do Eclipse/IntelliJ (caso use)
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+# Arquivos de log e outros temporários
+*.log
+*.class
