@@ -8,6 +8,6 @@ package ufjf.dcc025.batalhadewesteros;
  *
  * @author mjjun
  */
-public class Bot {
+public class bot {             
     
 }
