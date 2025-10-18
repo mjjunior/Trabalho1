@@ -8,10 +8,14 @@ public class BatalhaDeWesteros {
      public void start(){
          
         //JOptionPane.showMessageDialog(null, "Bem-vindo");
-        JOptionPane.showInputDialog("Bem-vindo a Batalha Tática das Casas de Westeros "
-                                    + "\nescolha um modo de jogo:\n" + 
-                                    "1 - Single player \n2 - Multiplayer\n3 - Sair ");
+        
+        String[] opcoes = {" Single-player "," Mutiplayer "," sair "};
+     
+      int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção", "Opções", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
       
-   
+       if(escolha == 0){
+           JOptionPane.showMessageDialog(null, "Iniciando jogo: " + opcoes[escolha]);
+       }
+       
      }
 }
