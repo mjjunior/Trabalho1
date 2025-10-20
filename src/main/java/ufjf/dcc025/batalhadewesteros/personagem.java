@@ -1,5 +1,7 @@
 package ufjf.dcc025.batalhadewesteros;
 
-public abstract class personagem {
+public interface personagem {
     
+    void atacar(personagem alvo);
+    void defender();
 }
