@@ -1,17 +1,31 @@
 package ufjf.dcc025.batalhadewesteros.Secundario;
+import java.util.List;
+import java.util.Random;
 import  ufjf.dcc025.batalhadewesteros.personagem;
 
 public class stark implements personagem{
 
     
-    private String nome;
-    private int vidaMaxima = 60;
+    private final String nome;
+    private final int vidaMaxima = 60;
     private int vidaAtual;
-    private int alcanceMaximo = 1; 
+    private final int alcanceMaximo = 1; 
+    
+    private void definePosicao(){
+        Random gerador = new Random();
+        int numAleatorio1, numAleatorio2;
+        
+        numAleatorio1= gerador.nextInt(10);
+        numAleatorio2 = gerador.nextInt(10);
+        
+        posicao.add(numAleatorio1);
+        posicao.add(numAleatorio2);
+    }
     
     public stark(String nome){
         this.nome = nome;
         vidaAtual = vidaMaxima;
+        definePosicao();
     }
     
     
@@ -62,5 +76,24 @@ public class stark implements personagem{
     public String getTipo() {
         return "STARK";
     }
+
+    @Override
+    public List<Integer> getPosicao() {
+       return posicao;
+    }
+
+    /*
+    @Override
+    public List<Integer> setPosicao() {
+        Random gerador = new Random();
+        int numAleatorio1, numAleatorio2;
+        
+        numAleatorio1= gerador.nextInt(10);
+        numAleatorio2 = gerador.nextInt(10);
+        
+        posicao.add(numAleatorio1);
+        posicao.add(numAleatorio2);
+    }
+    */
    
 }
