@@ -21,6 +21,8 @@ public class targaryen implements personagem{
         
         posicao.add(numAleatorio1);
         posicao.add(numAleatorio2);
+        
+        //informar acao no menu
     }
     
     public targaryen(String nome){
@@ -68,6 +70,13 @@ public class targaryen implements personagem{
     @Override
     public String getTipo() {
         return "TARGARYEN";
+    }
+
+    @Override
+    public void setPosicao(int linha, int coluna) {
+        posicao.add(linha);
+        posicao.add(coluna);
+        //informar acao no menu
     }
     
 }

@@ -69,6 +69,11 @@ public class linnister implements personagem {
         return posicao;
     }
 
-   
+    @Override
+    public void setPosicao(int linha, int coluna) {
+        posicao.add(linha);
+        posicao.add(coluna);
+        //informar acao no menu
+    }
     
 }

@@ -2,6 +2,7 @@ package ufjf.dcc025.batalhadewesteros.Secundario;
 
 //import ufjf.dcc025.batalhadewesteros.Personagens.personagem;
 import java.util.Scanner;
+import ufjf.dcc025.batalhadewesteros.personagem;
 
 public class tabuleiro {
     ///declaracao do mapa do tabuleiro que guarda os personagens em casa posicao, e o tamanho do tabuleiro
@@ -52,8 +53,8 @@ public class tabuleiro {
                 if(mapa[i][j] == null){
                     System.out.print(". ");
                 }
-                else{
-                    System.out.print(mapa[i][j].getSimbolo() + " ");
+                else{ //precisampos ajustatr aqui, implementei o personagem com uma lista Posicao - junior;
+                    System.out.print(mapa[i][j].getPosicao()+ " ");
                 }
             }
             System.out.println();

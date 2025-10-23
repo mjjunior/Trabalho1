@@ -82,18 +82,11 @@ public class stark implements personagem{
        return posicao;
     }
 
-    /*
     @Override
-    public List<Integer> setPosicao() {
-        Random gerador = new Random();
-        int numAleatorio1, numAleatorio2;
-        
-        numAleatorio1= gerador.nextInt(10);
-        numAleatorio2 = gerador.nextInt(10);
-        
-        posicao.add(numAleatorio1);
-        posicao.add(numAleatorio2);
+    public void setPosicao(int linha, int coluna) {
+        posicao.add(linha);
+        posicao.add(coluna);
+        //informar acao no menu
     }
-    */
    
 }
