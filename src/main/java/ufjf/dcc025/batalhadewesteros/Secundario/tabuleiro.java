@@ -42,7 +42,52 @@ public class tabuleiro {
 
     ///funcao para fazer a movimentacao do personagem(W,A,S,D) 
     public void movimentacao(personagem p){
+        Scanner sc = new Scanner(System.in);
+        boolean movimentoValido = false;
 
+        while(!movimentoValido){
+            System.out.print("Mover " + p.getNome() + " :");
+            String direcao = sc.nextLine().toUpperCase();
+
+            int novaLinha = p.getLinha();
+            int novaColuna = p.getColuna();
+
+            switch(direcao){
+                case "W":
+                    novaLinha--;
+                    break;
+                case "S":
+                    novaLinha++;
+                    break;
+                case "A":
+                    novaColuna--;
+                    break;
+                case "D":
+                    novaColuna++;
+                    break;
+                default:
+                    System.out.println("Entrada invalida, use W,A,S ou D para se mover.");
+                    continue;
+            }
+
+        if(!dentroLimite(novaLinha, novaColuna)){
+            System.out.println("Movimento para fora dos limites do tabuleiro, tente novamente");
+            continue;
+        }
+
+        if(!verVazio(novaLinha, novaColuna)){
+            System.out.println("A posição está ocupada, tente novamente");
+            continue;
+        }
+
+        ///se passar por tudo isso, quer dizer que o movimento é valido, então atualiza o tabuleiro
+        mapa[p.getLinha()][p.getColuna()] = null;
+        mapa[novaLinha][novaColuna] = p;
+        p.setPosicao(novaLinha, novaColuna);
+
+        movimentoValido = true;
+        System.out.println(p.getNome() + " moveu para (" + novaLinha + ", " + novaColuna + " )");
+        }
     }
 
     ///funcao para imprimir a situacao do tabuleiro no console

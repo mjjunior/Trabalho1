@@ -28,7 +28,4 @@ public interface personagem {
     
     String getTipo();
     
-    
-    
-    
 }
