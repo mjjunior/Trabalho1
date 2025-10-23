@@ -1,17 +1,16 @@
-package ufjf.dcc025.batalhadewesteros.Secundario;
+package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
 import java.util.List;
 import java.util.Random;
-import  ufjf.dcc025.batalhadewesteros.personagem;
 
-public class stark implements personagem{
 
+public class targaryen implements personagem{
     
     private final String nome;
-    private final int vidaMaxima = 60;
+    private final int vidaMaxima = 45;
     private int vidaAtual;
-    private final int alcanceMaximo = 1; 
+    private final int alcanceMaximo = 3;
     
-    private void definePosicao(){
+     private void definePosicao(){
         Random gerador = new Random();
         int numAleatorio1, numAleatorio2;
         
@@ -20,36 +19,25 @@ public class stark implements personagem{
         
         posicao.add(numAleatorio1);
         posicao.add(numAleatorio2);
+        
+        //informar acao no menu
     }
     
-    public stark(String nome){
+    public targaryen(String nome){
+        
         this.nome = nome;
         vidaAtual = vidaMaxima;
         definePosicao();
     }
-    
-    
+
     @Override
     public void atacar(personagem alvo) {
-        
-        /// Chamar menu inrormando o ataque e exibindo as informações;
-        alvo.recebeDano(ATAQUE_BASE);
+        alvo.recebeDano(ATAQUE_BASE+DEFESA_BASE);
     }
 
     @Override
     public void recebeDano(float dano) {
-        
-        // Opção 
-        
-        /* 
-        float danoReal = dano - DEFESA_BASE;
-        float modificadorDefensivo = dano * 0.2f;
-        vidaAtual -= danoReal - modificadorDefensivo; 
-        */
-        vidaAtual -= (dano - DEFESA_BASE) * 0.8f;
-        
-        ///chamar aqui um menu passando a vida restante e o dano recebido
-        
+        vidaAtual -= dano - DEFESA_BASE;
     }
 
     @Override
@@ -73,13 +61,13 @@ public class stark implements personagem{
     }
 
     @Override
-    public String getTipo() {
-        return "STARK";
+    public List<Integer> getPosicao() {
+        return posicao;
     }
 
     @Override
-    public List<Integer> getPosicao() {
-       return posicao;
+    public String getTipo() {
+        return "TARGARYEN";
     }
 
     @Override
@@ -88,5 +76,5 @@ public class stark implements personagem{
         posicao.add(coluna);
         //informar acao no menu
     }
-   
+    
 }

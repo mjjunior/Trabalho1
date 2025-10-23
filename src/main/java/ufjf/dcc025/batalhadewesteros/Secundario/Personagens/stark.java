@@ -1,16 +1,16 @@
-package ufjf.dcc025.batalhadewesteros.Secundario;
+package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
 import java.util.List;
 import java.util.Random;
-import  ufjf.dcc025.batalhadewesteros.personagem;
 
-public class linnister implements personagem {
+public class stark implements personagem{
+
     
-    String nome;
-    private final int vidaMaxima = 50;
+    private final String nome;
+    private final int vidaMaxima = 60;
     private int vidaAtual;
-    private final int alcanceMaximo = 2;
+    private final int alcanceMaximo = 1; 
     
-     private void definePosicao(){
+    private void definePosicao(){
         Random gerador = new Random();
         int numAleatorio1, numAleatorio2;
         
@@ -21,22 +21,34 @@ public class linnister implements personagem {
         posicao.add(numAleatorio2);
     }
     
-    public linnister(String nome){
+    public stark(String nome){
         this.nome = nome;
         vidaAtual = vidaMaxima;
         definePosicao();
     }
-
+    
+    
     @Override
-    public void atacar(personagem alvo) {  
+    public void atacar(personagem alvo) {
         
-        float modificadorOfensivo = ATAQUE_BASE * 0.5f;
-        alvo.recebeDano(ATAQUE_BASE+modificadorOfensivo);
+        /// Chamar menu inrormando o ataque e exibindo as informações;
+        alvo.recebeDano(ATAQUE_BASE);
     }
 
     @Override
     public void recebeDano(float dano) {
-        vidaAtual -= dano - DEFESA_BASE;
+        
+        // Opção 
+        
+        /* 
+        float danoReal = dano - DEFESA_BASE;
+        float modificadorDefensivo = dano * 0.2f;
+        vidaAtual -= danoReal - modificadorDefensivo; 
+        */
+        vidaAtual -= (dano - DEFESA_BASE) * 0.8f;
+        
+        ///chamar aqui um menu passando a vida restante e o dano recebido
+        
     }
 
     @Override
@@ -61,12 +73,12 @@ public class linnister implements personagem {
 
     @Override
     public String getTipo() {
-        return "LANNISTER";
+        return "STARK";
     }
 
     @Override
     public List<Integer> getPosicao() {
-        return posicao;
+       return posicao;
     }
 
     @Override
@@ -75,5 +87,5 @@ public class linnister implements personagem {
         posicao.add(coluna);
         //informar acao no menu
     }
-    
+   
 }

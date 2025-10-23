@@ -1,16 +1,13 @@
-package ufjf.dcc025.batalhadewesteros.Secundario;
+package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
 import java.util.List;
 import java.util.Random;
-import  ufjf.dcc025.batalhadewesteros.personagem;
-import static ufjf.dcc025.batalhadewesteros.personagem.posicao;
 
-
-public class targaryen implements personagem{
+public class linnister implements personagem {
     
-    private final String nome;
-    private final int vidaMaxima = 45;
+    String nome;
+    private final int vidaMaxima = 50;
     private int vidaAtual;
-    private final int alcanceMaximo = 3;
+    private final int alcanceMaximo = 2;
     
      private void definePosicao(){
         Random gerador = new Random();
@@ -21,20 +18,19 @@ public class targaryen implements personagem{
         
         posicao.add(numAleatorio1);
         posicao.add(numAleatorio2);
-        
-        //informar acao no menu
     }
     
-    public targaryen(String nome){
-        
+    public linnister(String nome){
         this.nome = nome;
         vidaAtual = vidaMaxima;
         definePosicao();
     }
 
     @Override
-    public void atacar(personagem alvo) {
-        alvo.recebeDano(ATAQUE_BASE+DEFESA_BASE);
+    public void atacar(personagem alvo) {  
+        
+        float modificadorOfensivo = ATAQUE_BASE * 0.5f;
+        alvo.recebeDano(ATAQUE_BASE+modificadorOfensivo);
     }
 
     @Override
@@ -63,13 +59,13 @@ public class targaryen implements personagem{
     }
 
     @Override
-    public List<Integer> getPosicao() {
-        return posicao;
+    public String getTipo() {
+        return "LANNISTER";
     }
 
     @Override
-    public String getTipo() {
-        return "TARGARYEN";
+    public List<Integer> getPosicao() {
+        return posicao;
     }
 
     @Override

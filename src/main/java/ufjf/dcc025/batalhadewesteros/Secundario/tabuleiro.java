@@ -1,8 +1,6 @@
 package ufjf.dcc025.batalhadewesteros.Secundario;
-
-//import ufjf.dcc025.batalhadewesteros.Personagens.personagem;
 import java.util.Scanner;
-import ufjf.dcc025.batalhadewesteros.personagem;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
 public class tabuleiro {
     ///declaracao do mapa do tabuleiro que guarda os personagens em casa posicao, e o tamanho do tabuleiro
