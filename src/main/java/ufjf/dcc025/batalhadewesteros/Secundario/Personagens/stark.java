@@ -5,8 +5,8 @@ import java.util.Random;
 public class stark implements personagem{
 
     
-    private final String nome;
-    private final int vidaMaxima = 60;
+    private String nome;
+    private final int VIDA_MAXIMA = 60;
     private int vidaAtual;
     private final int alcanceMaximo = 1; 
     
@@ -22,8 +22,11 @@ public class stark implements personagem{
     }
     
     public stark(String nome){
-        this.nome = nome;
-        vidaAtual = vidaMaxima;
+        if(nome != null)
+            this.nome = nome;
+        this.nome = "stark";
+        
+        vidaAtual = VIDA_MAXIMA;
         definePosicao();
     }
     
@@ -63,7 +66,7 @@ public class stark implements personagem{
 
     @Override
     public int getVidaMaxima() {
-        return vidaMaxima;
+        return VIDA_MAXIMA;
     }
 
     @Override
@@ -86,6 +89,21 @@ public class stark implements personagem{
         posicao.add(linha);
         posicao.add(coluna);
         //informar acao no menu
+    }
+    
+    @Override
+     public int getLinha() {
+       return posicao.getFirst();
+    }
+
+    @Override
+    public int getColuna() {
+        return posicao.getLast();
+    }
+    
+    @Override
+    public String toString(){
+        return " Nome: " + nome;
     }
    
 }

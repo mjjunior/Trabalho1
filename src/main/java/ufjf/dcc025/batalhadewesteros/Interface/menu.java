@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import ufjf.dcc025.batalhadewesteros.personagem;
-import ufjf.dcc025.batalhadewesteros.Secundario.linnister;
-import ufjf.dcc025.batalhadewesteros.Secundario.stark;
-import ufjf.dcc025.batalhadewesteros.Secundario.targaryen;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.linnister;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.stark;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.targaryen;
 
 
 
@@ -75,7 +75,7 @@ public class menu {
                 time.removeLast();
                 break;
             }
-            JOptionPane.showMessageDialog(null, "Sua equipe atual é" + time);
+            JOptionPane.showMessageDialog(null, "Sua equipe atual é " + time);
         }
 
         partida partida = new partida();

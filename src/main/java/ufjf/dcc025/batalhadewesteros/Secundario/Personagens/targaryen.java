@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class targaryen implements personagem{
     
-    private final String nome;
-    private final int vidaMaxima = 45;
+    private String nome;
+    private final int VIDA_MAXIMA = 45;
     private int vidaAtual;
     private final int alcanceMaximo = 3;
     
@@ -25,8 +25,11 @@ public class targaryen implements personagem{
     
     public targaryen(String nome){
         
-        this.nome = nome;
-        vidaAtual = vidaMaxima;
+        if(nome != null)
+            this.nome = nome;
+        this.nome = "targaryen";
+        
+        vidaAtual = VIDA_MAXIMA;
         definePosicao();
     }
 
@@ -52,7 +55,7 @@ public class targaryen implements personagem{
 
     @Override
     public int getVidaMaxima() {
-        return vidaMaxima;
+        return VIDA_MAXIMA;
     }
 
     @Override
@@ -76,5 +79,19 @@ public class targaryen implements personagem{
         posicao.add(coluna);
         //informar acao no menu
     }
-    
+   
+    @Override
+    public int getLinha() {
+       return posicao.getFirst();
+    }
+
+    @Override
+    public int getColuna() {
+        return posicao.getLast();
+    }
+ 
+    @Override
+    public String toString(){
+        return " Nome: " + nome;
+    }
 }

@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class linnister implements personagem {
     
-    String nome;
-    private final int vidaMaxima = 50;
+    private String nome;
+    private final int VIDA_MAXIMA = 50;
     private int vidaAtual;
     private final int alcanceMaximo = 2;
     
@@ -21,8 +21,12 @@ public class linnister implements personagem {
     }
     
     public linnister(String nome){
-        this.nome = nome;
-        vidaAtual = vidaMaxima;
+        
+        if(nome != null)
+            this.nome = nome;
+        this.nome = "linnister";
+        
+        vidaAtual = VIDA_MAXIMA;
         definePosicao();
     }
 
@@ -50,7 +54,7 @@ public class linnister implements personagem {
 
     @Override
     public int getVidaMaxima() {
-        return vidaMaxima;
+        return VIDA_MAXIMA;
     }
 
     @Override
@@ -73,6 +77,21 @@ public class linnister implements personagem {
         posicao.add(linha);
         posicao.add(coluna);
         //informar acao no menu
+    }
+    
+    @Override
+     public int getLinha() {
+       return posicao.getFirst();
+    }
+
+    @Override
+    public int getColuna() {
+        return posicao.getLast();
+    }
+    
+    @Override
+    public String toString(){
+        return " Nome: " + nome;
     }
     
 }

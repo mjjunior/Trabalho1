@@ -16,7 +16,7 @@ public interface personagem {
     int getVidaMaxima();
     int getAlcance();
     List<Integer> getPosicao();
-
+    
     /**
      * Definne a posição do personagem no tabuleiro 
      * @param linha
@@ -25,6 +25,8 @@ public interface personagem {
      */
     void setPosicao(int linha, int coluna);
     
-    String getTipo();
-    
+    public String getTipo();
+    public int getLinha();
+    public int getColuna();
+
 }
