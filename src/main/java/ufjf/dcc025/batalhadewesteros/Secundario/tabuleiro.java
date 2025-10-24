@@ -103,7 +103,7 @@ public class tabuleiro {
             System.out.println();
         }
     }
-
+   
     ///funcao para limpar o console antes de imprimir novamente(pensando se vai ser necessario ainda)
     //public static void limparTabuleiro(){
 

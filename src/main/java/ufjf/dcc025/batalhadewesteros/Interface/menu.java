@@ -35,12 +35,9 @@ public class menu {
         }
     }
     
-
-
-
-
     private void menuUmJogador(){
         List<personagem> time = new ArrayList<>(); 
+        replay r = new replay();
 
         for(int i = 1; i <= 3; i++){
             String[] opcoes = {"Stark", "Lannister", "Targaryen", "voltar"};
@@ -79,11 +76,15 @@ public class menu {
         }
 
         partida partida = new partida();
+        /// r.jogoSinglePlayer(time);    <--- onde imagino que deveria ser feita a chamada do replay
+        /// após a lista de personagens (time) ter sido corretamente inicializada e não sofrer mais alterações
+        /// Observe que nesta parte o bot já precisaria ter sido inicializado pois o construtor do replay
+        ///ultiliza as informacoes do bot
         partida.umJogador(time);
          
     }
-
-
+    
+    
     private void menuDoisJogadores(){
         JOptionPane.showMessageDialog(null, "Menu dois Jogador");
     }

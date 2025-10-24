@@ -6,7 +6,7 @@ import java.util.Random;
 public class targaryen implements personagem{
     
     private String nome;
-    private final int VIDA_MAXIMA = 45;
+    private final int VIDA_MAXIMA = 45; 
     private int vidaAtual;
     private final int alcanceMaximo = 3;
     
