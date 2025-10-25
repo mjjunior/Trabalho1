@@ -145,6 +145,20 @@ public class tabuleiro {
 
         System.out.println("\n");
     }
+
+    ///declaração e implementação de uma função para imprimir os status dos personagens depois da rodada, n tenho certeza se é no tabuleiro, mas ja adiantando.
+    ///public void ImprimirStatusPersonagem(){
+        ///System.out.println("Status dos personagens: ");
+        ///for(int i=0; i<tamanho;i++){
+            ///for(int j=0; j<tamanho; j++){
+                ///if(mapa[i][j] == null){
+                    ///personagem p = mapa[i][j];
+                    ///System.out.println(p.getNome() + "Vida: " + p.getVida() + "Ataque: " + p.getAtaque() + "Defesa: " + p.getDefesa());
+                //}
+            //}
+        //}
+        //System.out.println();
+    //}
    
     ///funcao para limpar o console antes de imprimir novamente(pensando se vai ser necessario ainda)
     ///public static void limparTabuleiro(){
