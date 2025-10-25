@@ -51,6 +51,7 @@ public class tabuleiro {
             int novaLinha = p.getLinha();
             int novaColuna = p.getColuna();
 
+            ///movimentação na ortogonal e depois na diagonal
             switch(direcao){
                 case "W":
                     novaLinha--;
@@ -62,6 +63,22 @@ public class tabuleiro {
                     novaColuna--;
                     break;
                 case "D":
+                    novaColuna++;
+                    break;
+                case "Q":
+                    novaLinha--;
+                    novaColuna--;
+                    break;
+                case "E" :
+                    novaLinha--;
+                    novaColuna++;
+                    break;
+                case "Z":
+                    novaLinha++;
+                    novaColuna--;
+                    break;
+                case "C":
+                    novaLinha++;
                     novaColuna++;
                     break;
                 default:
