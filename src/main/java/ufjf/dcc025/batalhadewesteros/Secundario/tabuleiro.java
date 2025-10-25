@@ -40,11 +40,12 @@ public class tabuleiro {
             return false;
     }
 
-    ///funcao para fazer a movimentacao do personagem(W,A,S,D) 
+    ///funcao para fazer a movimentacao do personagem(W,A,S,D,Q,E,Z,C) 
     public void movimentacao(personagem p){
         boolean movimentoValido = false;
 
         while(!movimentoValido){
+            imprimirTabuleiro(); //para mostrar o tabuleiro antes de cada movimento
             System.out.print("Mover " + p.getNome() + " :");
             String direcao = sc.nextLine().toUpperCase();
 
