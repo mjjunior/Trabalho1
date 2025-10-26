@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import ufjf.dcc025.batalhadewesteros.personagem;
-import ufjf.dcc025.batalhadewesteros.Secundario.linnister;
-import ufjf.dcc025.batalhadewesteros.Secundario.stark;
-import ufjf.dcc025.batalhadewesteros.Secundario.targaryen;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.linnister;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.stark;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.targaryen;
+
+
 
 public class menu {     
-
     public void menuPrincipal(){    
         String[] opcoes = {"Um jogador", "Dois jogadores", "Sair"};
         int escolha = JOptionPane.showOptionDialog(null, "Selecione o modo de Jogo:", "Menu principal",  JOptionPane.DEFAULT_OPTION, 
@@ -34,14 +35,11 @@ public class menu {
         }
     }
     
-
-
-
-
     private void menuUmJogador(){
         List<personagem> time = new ArrayList<>(); 
         String[] opcoes = {"Stark", "Lannister", "Targaryen", "voltar"};
         int escolha;
+        replay r = new replay();
 
         for(int i = 1; i <= 3; i++){
             
@@ -82,6 +80,10 @@ public class menu {
         JOptionPane.showMessageDialog(null, "Iniciando partida...");
 
         partida partida = new partida();
+        /// r.jogoSinglePlayer(time);    <--- onde imagino que deveria ser feita a chamada do replay
+        /// após a lista de personagens (time) ter sido corretamente inicializada e não sofrer mais alterações
+        /// Observe que nesta parte o bot já precisaria ter sido inicializado pois o construtor do replay
+        ///ultiliza as informacoes do bot
         partida.umJogador(time);
     }
 
