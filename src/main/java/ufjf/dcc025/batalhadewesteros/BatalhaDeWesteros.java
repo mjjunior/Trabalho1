@@ -3,7 +3,7 @@ import ufjf.dcc025.batalhadewesteros.Interface.menu;
 
 import javax.swing.JOptionPane;
 
-public class batalhaDeWesteros {
+public class BatalhaDeWesteros {
     
     public static void main(String[] args) {           
         

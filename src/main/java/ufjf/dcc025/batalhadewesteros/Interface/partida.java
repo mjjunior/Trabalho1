@@ -1,12 +1,12 @@
 package ufjf.dcc025.batalhadewesteros.Interface;
 
-import ufjf.dcc025.batalhadewesteros.personagem;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class partida {
     
-    public void umJogador(List <personagem> time){
+    public void umJogador(List<personagem> time){
         JOptionPane.showMessageDialog(null, "Partida um Jogador");
     }
     
