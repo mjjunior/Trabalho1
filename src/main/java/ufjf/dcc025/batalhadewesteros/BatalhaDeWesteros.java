@@ -8,7 +8,8 @@ public class batalhaDeWesteros {
     public static void main(String[] args) {           
         
         menu jogo = new menu();
-        JOptionPane.showMessageDialog(null, "Bem vindo a Batalha Tática das Casas de  Westeros!");
+        JOptionPane.showMessageDialog(null, "Bem vindo a Batalha Tática das Casas de  Westeros! \n" + 
+                                    "Monte um time com 3 personagens e batalhe contra um amigo ou teste suas habilidades de maneira solo.");
         jogo.menuPrincipal();
     }   
 }
