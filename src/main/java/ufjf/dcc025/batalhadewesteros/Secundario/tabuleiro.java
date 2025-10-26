@@ -1,15 +1,16 @@
 package ufjf.dcc025.batalhadewesteros.Secundario;
-
-//import ufjf.dcc025.batalhadewesteros.Personagens.personagem;
 import java.util.Scanner;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
 public class tabuleiro {
     ///declaracao do mapa do tabuleiro que guarda os personagens em casa posicao, e o tamanho do tabuleiro
     private personagem[][] mapa;
     private final int tamanho = 10;
+    private Scanner sc;
 
     public tabuleiro(){
         mapa = new personagem[tamanho][tamanho];
+        sc = new Scanner(System.in);
     }
 
     ///função para verificar se a posicao do personagem está dentro do tamanho do tabuleiro
@@ -21,7 +22,7 @@ public class tabuleiro {
     }
     
     ///função para colocar o personagem na posicao, caso ela esteja livre
-    public boolean posicicao(personagem p, int linha, int coluna){
+    public boolean posicionar(personagem p, int linha, int coluna){
         if(dentroLimite(linha, coluna) == true && mapa[linha][coluna] == null){
             mapa[linha][coluna] = p;
             p.setPosicao(linha, coluna);
@@ -39,18 +40,19 @@ public class tabuleiro {
             return false;
     }
 
-    ///funcao para fazer a movimentacao do personagem(W,A,S,D) 
+    ///funcao para fazer a movimentacao do personagem(W,A,S,D,Q,E,Z,C) 
     public void movimentacao(personagem p){
-        Scanner sc = new Scanner(System.in);
         boolean movimentoValido = false;
 
         while(!movimentoValido){
+            imprimirTabuleiro(); //para mostrar o tabuleiro antes de cada movimento
             System.out.print("Mover " + p.getNome() + " :");
             String direcao = sc.nextLine().toUpperCase();
 
             int novaLinha = p.getLinha();
             int novaColuna = p.getColuna();
 
+            ///movimentação na ortogonal e depois na diagonal
             switch(direcao){
                 case "W":
                     novaLinha--;
@@ -62,6 +64,22 @@ public class tabuleiro {
                     novaColuna--;
                     break;
                 case "D":
+                    novaColuna++;
+                    break;
+                case "Q":
+                    novaLinha--;
+                    novaColuna--;
+                    break;
+                case "E" :
+                    novaLinha--;
+                    novaColuna++;
+                    break;
+                case "Z":
+                    novaLinha++;
+                    novaColuna--;
+                    break;
+                case "C":
+                    novaLinha++;
                     novaColuna++;
                     break;
                 default:
@@ -92,21 +110,59 @@ public class tabuleiro {
     ///funcao para imprimir a situacao do tabuleiro no console
     public void imprimirTabuleiro(){
         System.out.println("TABULEIRO:");
+        ///Pensando em um meio de diferenciar os times no tabuleiro
+        System.out.println("Time 1 (Letras Maiusculas) vs Time 2 (Letras Minúsculas)");
+        System.out.println();
+
         for(int i=0;i<tamanho;i++){
+            ///imprimindo o numero das linhas, para facilitar ver o jogo
+            System.out.print(i + " ");
             for(int j=0; j<tamanho; j++){
+                ///verifica se a posicao está sem ninguem
                 if(mapa[i][j] == null){
                     System.out.print(". ");
                 }
-                else{
-                    System.out.print(mapa[i][j].getSimbolo() + " ");
+                else{ 
+                    ///verifico se é do time 1 ou do time 2 para imprimir cada um de maneira diferente
+                    boolean verificaTime1 = time1.contains(mapa[i][j]);
+                    char simbolo = mapa[i][j].getNome().charAt(0);
+                    if(verificaTime1){
+                        System.out.print(Character.toUpperCase(simbolo) + " ");
+                    }
+                    else{
+                        System.out.print(Character.toLowerCase(simbolo) + " ");
+                    }
                 }
             }
             System.out.println();
         }
+
+        ///fazendo a mesma coisa que fiz com as linhas, agora para coluna pra facilitar ver o jogo
+        System.out.print(" ");
+        for(int j=0; j<tamanho; j++){
+            System.out.print(j + " ");
+        }
+
+        System.out.println("\n");
     }
 
-    ///funcao para limpar o console antes de imprimir novamente(pensando se vai ser necessario ainda)
-    //public static void limparTabuleiro(){
-
+    ///declaração e implementação de uma função para imprimir os status dos personagens depois da rodada, n tenho certeza se é no tabuleiro, mas ja adiantando.
+    ///public void ImprimirStatusPersonagem(){
+        ///System.out.println("Status dos personagens: ");
+        ///for(int i=0; i<tamanho;i++){
+            ///for(int j=0; j<tamanho; j++){
+                ///if(mapa[i][j] == null){
+                    ///personagem p = mapa[i][j];
+                    ///System.out.println(p.getNome() + "Vida: " + p.getVida() + "Ataque: " + p.getAtaque() + "Defesa: " + p.getDefesa());
+                //}
+            //}
+        //}
+        //System.out.println();
     //}
+   
+    ///funcao para limpar o console antes de imprimir novamente(pensando se vai ser necessario ainda)
+    ///public static void limparTabuleiro(){
+       /// System.out.print("\033[H\033[2J");
+        ///System.out.flush();
+    ///}
 }
