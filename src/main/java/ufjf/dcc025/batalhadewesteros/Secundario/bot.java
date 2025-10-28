@@ -2,7 +2,7 @@ package ufjf.dcc025.batalhadewesteros.Secundario;
 
 import java.util.ArrayList;
 import java.util.List;
-import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.linnister;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.lannister;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.stark;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.targaryen;
@@ -17,7 +17,7 @@ public class bot {
         timeBot = new ArrayList<>();
         
         stark p1 = new stark("BOT: stark");
-        linnister p2 = new linnister("BOT: linnister");
+        lannister p2 = new lannister("BOT: linnister");
         targaryen p3 = new targaryen("BOT: targaryen");
         
         timeBot.add(p1);

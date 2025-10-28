@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
-import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.linnister;
+import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.lannister;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.stark;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.targaryen;
 
@@ -60,7 +60,7 @@ public class menu {
                 break;
 
             case 1:
-                linnister personagem2 = new linnister(null);
+                lannister personagem2 = new lannister(null);
                 time.add(personagem2);
                 break;
 
@@ -115,7 +115,7 @@ public class menu {
                     break;
 
                 case 1:
-                    linnister personagem2 = new linnister(null);
+                    lannister personagem2 = new lannister(null);
                     time1.add(personagem2);
                     break;
 
@@ -145,7 +145,7 @@ public class menu {
                     break;
 
                 case 1:
-                    linnister personagem2 = new linnister(null);
+                    lannister personagem2 = new lannister(null);
                     time2.add(personagem2);
                     break;
 
