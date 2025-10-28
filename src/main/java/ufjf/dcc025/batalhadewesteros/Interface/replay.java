@@ -6,15 +6,21 @@ import javax.swing.JOptionPane;
 
 public class replay {
     
-   private final List<String> replayPartida;
+   private final List<String> replayInterface;
+   private final List<String> log;
    private int cont = 0;
     
     public replay(){
-        replayPartida = new ArrayList<>();
+        replayInterface = new ArrayList<>();
+        log = new ArrayList<>();
     }
     
-    public void salvar(String rodada){
-        replayPartida.add(rodada);
+    public void salvaReplay(String rodada){
+        replayInterface.add(rodada);
+    }   
+    
+    public void salvaLog(String loaAtual){
+        log.add(loaAtual);
     }
     
     public void exibirReplay(){
@@ -61,13 +67,18 @@ public class replay {
     
     private void imprime(int i){
         
-        if(i >= 0 && i <= replayPartida.size()){
+        if(i >= 0 && i <= replayInterface.size()){
                 
-            String jogada = replayPartida.get(i);
+            String jogada = replayInterface.get(i);
             JOptionPane.showMessageDialog(null, jogada);
+            
+            String logPartida = log.get(i);
+            System.out.println(jogada);
             
             menuOpcoes();
         }
-    }
+        else
+            System.out.println("Opção invalida! \nEncerrando..."); 
+   }
 
 }

@@ -47,7 +47,7 @@ public class partida {
 
             sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
         }
-
+        
         return sb.toString();
     }
 
