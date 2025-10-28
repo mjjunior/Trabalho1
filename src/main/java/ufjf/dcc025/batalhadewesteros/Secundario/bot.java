@@ -24,7 +24,7 @@ public class bot {
 
     //função para escolher um personagem aleatorio para o time do bot
     public personagem escolherPersonagem(){
-        int escolha = rand.nexyInt(3); //ja que temos 3 personagens, vou usar para o switch, se for 0 é um personagem, 1 outro, ...
+        int escolha = rand.nextInt(3); //ja que temos 3 personagens, vou usar para o switch, se for 0 é um personagem, 1 outro, ...
         switch(escolha){
             case 0:
                 return new stark("Stark");
