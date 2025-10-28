@@ -1,4 +1,7 @@
 package ufjf.dcc025.batalhadewesteros.Secundario;
+
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
@@ -8,10 +11,51 @@ public class tabuleiro {
     private final int tamanho = 10;
     private Scanner sc;
 
-    public tabuleiro(){
+    private List<personagem> time1; 
+    private List<personagem> time2;
+
+    ///construtor que recebe os times e os posiciona automaticamente no tabuleiro
+    public tabuleiro(List<personagem> time1, List<personagem> time2){
         mapa = new personagem[tamanho][tamanho];
         sc = new Scanner(System.in);
+
+        this.time1 = time1; //salvando o time 1
+        this.time2 = time2; //salvando o time 2
+
+        posicionarTime(time1, true); //lado direito do tabuleiro
+        posicionarTime(time2, false); //lado esquerdo do tabuleiro
     }
+
+    //função que posiciona automaticamente os personagens no tabuleiro
+    private void posicionarTime(List<personagem> time, boolean esquerda){
+        Random r = new Random();
+
+        for(personagem p : time){
+            
+            int linha =0;
+            int coluna =0;
+        ///vai tentar ate achar uma posicao livre
+        while(true){
+            linha = r.nextInt(tamanho);
+            if(esquerda){
+                ///aqui to pensando que pro time do jogador vai ter as colunas de 0 a 3
+                coluna = r.nextInt(4);
+            }
+            else {
+                ///aqui entra pro bot, que vai ter as colunas de 6 a 9
+                coluna = 6 + r.nextInt(4);
+            }
+            
+            //se n entrar entar no if nem no else, a casa ta vazia então saio do while
+            if(mapa[linha][coluna] == null){
+                break;
+                }
+            }
+            mapa[linha][coluna] = p;
+            p.setPosicao(linha, coluna);
+        }
+    }
+
 
     ///função para verificar se a posicao do personagem está dentro do tamanho do tabuleiro
     public boolean dentroLimite(int linha, int coluna){
@@ -20,17 +64,19 @@ public class tabuleiro {
         else
             return false;
     }
-    
-    ///função para colocar o personagem na posicao, caso ela esteja livre
-    public boolean posicionar(personagem p, int linha, int coluna){
-        if(dentroLimite(linha, coluna) == true && mapa[linha][coluna] == null){
-            mapa[linha][coluna] = p;
-            p.setPosicao(linha, coluna);
-            return true;
+
+    ///função para pegar o personagem em uma certa posição do tabuleiro
+    public personagem getPersonagem(int linha, int coluna){
+        //verifico se a posicao em questão está dentro do tabuleiro
+        if(!dentroLimite(linha, coluna)){
+            System.out.println("Posição está fora do tabuleiro.");
+            return null; //ja que a posição é invalida, retorna null
         }
-        else
-            return false;
+        else{
+            return mapa[linha][coluna]; //se n entrou no if de cima, quer dizer que é valida, então retorno o personagem que está na posição
+        }
     }
+
 
     ///funcao para verificar se a posicao está vazia
     public boolean verVazio(int linha, int coluna){
@@ -110,8 +156,10 @@ public class tabuleiro {
     ///funcao para imprimir a situacao do tabuleiro no console
     public void imprimirTabuleiro(){
         System.out.println("TABULEIRO:");
+
         ///Pensando em um meio de diferenciar os times no tabuleiro
         System.out.println("Time 1 (Letras Maiusculas) vs Time 2 (Letras Minúsculas)");
+
         System.out.println();
 
         for(int i=0;i<tamanho;i++){
@@ -125,13 +173,20 @@ public class tabuleiro {
                 else{ 
                     ///verifico se é do time 1 ou do time 2 para imprimir cada um de maneira diferente
                     boolean verificaTime1 = time1.contains(mapa[i][j]);
+                    boolean verificaTime2 = time2.contains(mapa[i][j]);
+
                     char simbolo = mapa[i][j].getNome().charAt(0);
+
                     if(verificaTime1){
                         System.out.print(Character.toUpperCase(simbolo) + " ");
                     }
-                    else{
+                    else if(verificaTime2){
                         System.out.print(Character.toLowerCase(simbolo) + " ");
+                    } else {
+                        ///caso o personagem não esteja em nenhum dos dois times
+                        System.out.print(simbolo + " ");
                     }
+
                 }
             }
             System.out.println();
