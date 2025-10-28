@@ -9,6 +9,7 @@ public class stark implements personagem{
     private final int VIDA_MAXIMA = 60;
     private int vidaAtual;
     private final int alcanceMaximo = 1; 
+    private int time = 0; 
     
     private void definePosicao(){
         Random gerador = new Random();
@@ -105,6 +106,17 @@ public class stark implements personagem{
     @Override
     public String toString(){
         return " Nome: " + nome;
+    }
+    
+        @Override
+    public void setTime(int time) {
+        if(time > 0 && time <= 2)
+            this.time = time;
+    }
+
+    @Override
+    public int getTime() {
+        return time;
     }
    
 }

@@ -11,6 +11,7 @@ public class bot {
 
     public bot(){
         timeBot = new ArrayList<>();
+        
         rand = new Random();
         inicializarTimeBot();
     }
@@ -30,7 +31,7 @@ public class bot {
             case 0:
                 return new stark("Stark");
             case 1:
-                return new linnister("Linnister");
+                return new lannister("Lannister");
             default:
                 return new targaryen("Targaryen");
         }
