@@ -54,8 +54,8 @@ public class partida {
 
 
 
-    private int selecionaPersonagem(int turno, tabuleiro tabuleiro, List <personagem> time1, List <personagem> time2, String[] opcoes){
-        int escolha = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + "Selecione um personagem para mover:", 
+    private int selecionaPersonagem(int turno, tabuleiro tabuleiro, List <personagem> time1, List <personagem> time2, String[] opcoes, String Jogador){
+        int escolha = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + Jogador +" selecione um personagem para mover:", 
                             "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]); 
         return escolha;
     }
@@ -84,23 +84,28 @@ public class partida {
                     opcoes[i] = time1.get(i).getNome();
         
                 
-                int escolhaDirecao;
-                do{     /// O doWhile serve para poder ter a opção de voltar e escolher um outro personagem para mover
-                    int escolhaPersonagem = selecionaPersonagem(turno, tabuleiro, time1, time2, opcoes);
+                int escolhaDirecao = 0;
+                personagem selecionado = null;
+                /// O do While serve para poder ter a opção de voltar e escolher um outro personagem para mover
+                do{                                
+                    int escolhaPersonagem = selecionaPersonagem(turno, tabuleiro, time1, time2, opcoes, "Jogador 1");
 
                     if (escolhaPersonagem >= 0 && escolhaPersonagem < time1.size()) {
-                        personagem selecionado = time1.get(escolhaPersonagem);            //elimina a necessidade de um swith
+                        selecionado = time1.get(escolhaPersonagem);            //elimina a necessidade de um swith
 
                         escolhaDirecao = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + "Mova para uma direção:", 
                                 "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
                                 
                                 
-                        if(escolhaDirecao < 4 ){      //se entrou aqui é pq não vai ter loop
-                            tabuleiro.movePersonagem(selecionado, escolhaDirecao);
-                        } 
+                        if(escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)){      //se entrou aqui é pq não vai ter loop
+                            
+                        }
+                        else if(escolhaDirecao < 4)                                                            //movimentação invalida
+                            JOptionPane.showMessageDialog(null, "Direção invalida! Escolha um outro personagem" +
+                                                          " para se mover ou mova para uma posição valida.");
                             
                     }
-                } while(escolhaDirecao == 4);
+                } while(escolhaDirecao == 4 || !tabuleiro.moverPersonagem(selecionado, escolhaDirecao));       //caso selecione voltar ou movimente errado
             }
 
             //jogada do jogador 2
