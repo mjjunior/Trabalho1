@@ -65,6 +65,19 @@ public class tabuleiro {
             return false;
     }
 
+    ///função para pegar o personagem em uma certa posição do tabuleiro
+    public personagem getPersonagem(int linha, int coluna){
+        //verifico se a posicao em questão está dentro do tabuleiro
+        if(!dentroLimite(linha, coluna)){
+            System.out.println("Posição está fora do tabuleiro.");
+            return null; //ja que a posição é invalida, retorna null
+        }
+        else{
+            return mapa[linha][coluna]; //se n entrou no if de cima, quer dizer que é valida, então retorno o personagem que está na posição
+        }
+    }
+
+
     ///funcao para verificar se a posicao está vazia
     public boolean verVazio(int linha, int coluna){
         if(dentroLimite(linha, coluna) == true && mapa[linha][coluna]==null)
@@ -146,7 +159,7 @@ public class tabuleiro {
 
         ///Pensando em um meio de diferenciar os times no tabuleiro
         System.out.println("Time 1 (Letras Maiusculas) vs Time 2 (Letras Minúsculas)");
-        
+
         System.out.println();
 
         for(int i=0;i<tamanho;i++){
