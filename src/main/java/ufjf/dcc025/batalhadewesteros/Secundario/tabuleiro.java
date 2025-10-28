@@ -2,25 +2,25 @@ package ufjf.dcc025.batalhadewesteros.Secundario;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+//import java.util.Scanner;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
 public class tabuleiro {
     ///declaracao do mapa do tabuleiro que guarda os personagens em casa posicao, e o tamanho do tabuleiro
     private personagem[][] mapa;
     private final int tamanho = 10;
-    private Scanner sc;
+    //private Scanner sc;
 
-    private List<personagem> time1; 
-    private List<personagem> time2;
+    //private List<personagem> time1; 
+    //private List<personagem> time2;
 
     ///construtor que recebe os times e os posiciona automaticamente no tabuleiro
     public tabuleiro(List<personagem> time1, List<personagem> time2){
         mapa = new personagem[tamanho][tamanho];
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
 
-        this.time1 = time1; //salvando o time 1
-        this.time2 = time2; //salvando o time 2
+        //this.time1 = time1; //salvando o time 1
+        //this.time2 = time2; //salvando o time 2
 
         posicionarTime(time1, true); //lado direito do tabuleiro
         posicionarTime(time2, false); //lado esquerdo do tabuleiro
@@ -34,8 +34,9 @@ public class tabuleiro {
             
             int linha =0;
             int coluna =0;
+
         ///vai tentar ate achar uma posicao livre
-        while(true){
+        while(mapa[linha][coluna] != null){
             linha = r.nextInt(tamanho);
             if(esquerda){
                 ///aqui to pensando que pro time do jogador vai ter as colunas de 0 a 3
@@ -77,7 +78,6 @@ public class tabuleiro {
         }
     }
 
-
     ///funcao para verificar se a posicao está vazia
     public boolean verVazio(int linha, int coluna){
         if(dentroLimite(linha, coluna) == true && mapa[linha][coluna]==null)
@@ -86,120 +86,162 @@ public class tabuleiro {
             return false;
     }
 
-    ///funcao para fazer a movimentacao do personagem(W,A,S,D,Q,E,Z,C) 
-    public void movimentacao(personagem p){
-        boolean movimentoValido = false;
+    public boolean moverPersonagem(personagem p, int direcao){
+        int novaLinha = p.getLinha();
+        int novaColuna = p.getColuna();
 
-        while(!movimentoValido){
-            imprimirTabuleiro(); //para mostrar o tabuleiro antes de cada movimento
-            System.out.print("Mover " + p.getNome() + " :");
-            String direcao = sc.nextLine().toUpperCase();
-
-            int novaLinha = p.getLinha();
-            int novaColuna = p.getColuna();
-
-            ///movimentação na ortogonal e depois na diagonal
-            switch(direcao){
-                case "W":
-                    novaLinha--;
-                    break;
-                case "S":
-                    novaLinha++;
-                    break;
-                case "A":
-                    novaColuna--;
-                    break;
-                case "D":
-                    novaColuna++;
-                    break;
-                //case "Q":
-                    //novaLinha--;
-                    //novaColuna--;
-                    //break;
-                //case "E" :
-                   // novaLinha--;
-                    //novaColuna++;
-                    //break;
-                //case "Z":
-                  //  novaLinha++;
-                    //novaColuna--;
-                    //break;
-                //case "C":
-                  //  novaLinha++;
-                    //novaColuna++;
-                    //break;
-                default:
-                    System.out.println("Entrada invalida, use W,A,S ou D para se mover.");
-                    continue;
-            }
+        switch(direcao){
+            case 0: //cima
+                novaLinha--;
+                break;
+            case 1: //baixo
+                novaLinha++;
+                break;
+            case 2: //direita
+                novaColuna++;
+                break;
+            case 3: //esquerda
+                novaColuna--;
+                break; 
+            default:
+                System.out.println("Direção inválida.");
+                return false;
+        }
 
         if(!dentroLimite(novaLinha, novaColuna)){
-            System.out.println("Movimento para fora dos limites do tabuleiro, tente novamente");
-            continue;
+            System.out.println("Movimento para fora dos limites do tabuleiro");
+            return false;
         }
 
         if(!verVazio(novaLinha, novaColuna)){
-            System.out.println("A posição está ocupada, tente novamente");
-            continue;
+            System.out.println("A posição está ocupada");
+            return false;
         }
 
-        ///se passar por tudo isso, quer dizer que o movimento é valido, então atualiza o tabuleiro
+        //agora atualiza o tabuleiro
         mapa[p.getLinha()][p.getColuna()] = null;
         mapa[novaLinha][novaColuna] = p;
         p.setPosicao(novaLinha, novaColuna);
 
-        movimentoValido = true;
-        System.out.println(p.getNome() + " moveu para (" + novaLinha + ", " + novaColuna + " )");
-        }
+        return true;
     }
+
+
+
+    ///funcao para fazer a movimentacao do personagem(W,A,S,D,Q,E,Z,C) 
+    // public void movimentacao(personagem p){
+    //     boolean movimentoValido = false;
+
+    //     while(!movimentoValido){
+    //         imprimirTabuleiro(); //para mostrar o tabuleiro antes de cada movimento
+    //         System.out.print("Mover " + p.getNome() + " :");
+    //         String direcao = sc.nextLine().toUpperCase();
+
+    //         int novaLinha = p.getLinha();
+    //         int novaColuna = p.getColuna();
+
+    //         ///movimentação na ortogonal e depois na diagonal
+    //         switch(direcao){
+    //             case "W":
+    //                 novaLinha--;
+    //                 break;
+    //             case "S":
+    //                 novaLinha++;
+    //                 break;
+    //             case "A":
+    //                 novaColuna--;
+    //                 break;
+    //             case "D":
+    //                 novaColuna++;
+    //                 break;
+    //             //case "Q":
+    //                 //novaLinha--;
+    //                 //novaColuna--;
+    //                 //break;
+    //             //case "E" :
+    //                // novaLinha--;
+    //                 //novaColuna++;
+    //                 //break;
+    //             //case "Z":
+    //               //  novaLinha++;
+    //                 //novaColuna--;
+    //                 //break;
+    //             //case "C":
+    //               //  novaLinha++;
+    //                 //novaColuna++;
+    //                 //break;
+    //             default:
+    //                 System.out.println("Entrada invalida, use W,A,S ou D para se mover.");
+    //                 continue;
+    //         }
+
+    //     if(!dentroLimite(novaLinha, novaColuna)){
+    //         System.out.println("Movimento para fora dos limites do tabuleiro, tente novamente");
+    //         continue;
+    //     }
+
+    //     if(!verVazio(novaLinha, novaColuna)){
+    //         System.out.println("A posição está ocupada, tente novamente");
+    //         continue;
+    //     }
+
+    //     ///se passar por tudo isso, quer dizer que o movimento é valido, então atualiza o tabuleiro
+    //     mapa[p.getLinha()][p.getColuna()] = null;
+    //     mapa[novaLinha][novaColuna] = p;
+    //     p.setPosicao(novaLinha, novaColuna);
+
+    //     movimentoValido = true;
+    //     System.out.println(p.getNome() + " moveu para (" + novaLinha + ", " + novaColuna + " )");
+    //     }
+    // }
 
     ///funcao para imprimir a situacao do tabuleiro no console
-    public void imprimirTabuleiro(){
-        System.out.println("TABULEIRO:");
+    // public void imprimirTabuleiro(){
+    //     System.out.println("TABULEIRO:");
 
-        ///Pensando em um meio de diferenciar os times no tabuleiro
-        System.out.println("Time 1 (Letras Maiusculas) vs Time 2 (Letras Minúsculas)");
+    //     ///Pensando em um meio de diferenciar os times no tabuleiro
+    //     System.out.println("Time 1 (Letras Maiusculas) vs Time 2 (Letras Minúsculas)");
 
-        System.out.println();
+    //     System.out.println();
 
-        for(int i=0;i<tamanho;i++){
-            ///imprimindo o numero das linhas, para facilitar ver o jogo
-            System.out.print(i + " ");
-            for(int j=0; j<tamanho; j++){
-                ///verifica se a posicao está sem ninguem
-                if(mapa[i][j] == null){
-                    System.out.print(". ");
-                }
-                else{ 
-                    ///verifico se é do time 1 ou do time 2 para imprimir cada um de maneira diferente
-                    boolean verificaTime1 = time1.contains(mapa[i][j]);
-                    boolean verificaTime2 = time2.contains(mapa[i][j]);
+    //     for(int i=0;i<tamanho;i++){
+    //         ///imprimindo o numero das linhas, para facilitar ver o jogo
+    //         System.out.print(i + " ");
+    //         for(int j=0; j<tamanho; j++){
+    //             ///verifica se a posicao está sem ninguem
+    //             if(mapa[i][j] == null){
+    //                 System.out.print(". ");
+    //             }
+    //             else{ 
+    //                 ///verifico se é do time 1 ou do time 2 para imprimir cada um de maneira diferente
+    //                 boolean verificaTime1 = time1.contains(mapa[i][j]);
+    //                 boolean verificaTime2 = time2.contains(mapa[i][j]);
 
-                    char simbolo = mapa[i][j].getNome().charAt(0);
+    //                 char simbolo = mapa[i][j].getNome().charAt(0);
 
-                    if(verificaTime1){
-                        System.out.print(Character.toUpperCase(simbolo) + " ");
-                    }
-                    else if(verificaTime2){
-                        System.out.print(Character.toLowerCase(simbolo) + " ");
-                    } else {
-                        ///caso o personagem não esteja em nenhum dos dois times
-                        System.out.print(simbolo + " ");
-                    }
+    //                 if(verificaTime1){
+    //                     System.out.print(Character.toUpperCase(simbolo) + " ");
+    //                 }
+    //                 else if(verificaTime2){
+    //                     System.out.print(Character.toLowerCase(simbolo) + " ");
+    //                 } else {
+    //                     ///caso o personagem não esteja em nenhum dos dois times
+    //                     System.out.print(simbolo + " ");
+    //                 }
 
-                }
-            }
-            System.out.println();
-        }
+    //             }
+    //         }
+    //         System.out.println();
+    //     }
 
-        ///fazendo a mesma coisa que fiz com as linhas, agora para coluna pra facilitar ver o jogo
-        System.out.print(" ");
-        for(int j=0; j<tamanho; j++){
-            System.out.print(j + " ");
-        }
+    //     ///fazendo a mesma coisa que fiz com as linhas, agora para coluna pra facilitar ver o jogo
+    //     System.out.print(" ");
+    //     for(int j=0; j<tamanho; j++){
+    //         System.out.print(j + " ");
+    //     }
 
-        System.out.println("\n");
-    }
+    //     System.out.println("\n");
+    // }
 
     ///declaração e implementação de uma função para imprimir os status dos personagens depois da rodada, n tenho certeza se é no tabuleiro, mas ja adiantando.
     ///public void ImprimirStatusPersonagem(){
@@ -214,10 +256,4 @@ public class tabuleiro {
         //}
         //System.out.println();
     //}
-   
-    ///funcao para limpar o console antes de imprimir novamente(pensando se vai ser necessario ainda)
-    ///public static void limparTabuleiro(){
-       /// System.out.print("\033[H\033[2J");
-        ///System.out.flush();
-    ///}
 }
