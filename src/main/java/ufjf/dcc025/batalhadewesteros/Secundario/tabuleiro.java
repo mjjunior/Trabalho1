@@ -52,6 +52,7 @@ public class tabuleiro {
                 break;
                 }
             }
+            
             mapa[linha][coluna] = p;
             p.setPosicao(linha, coluna);
         }
