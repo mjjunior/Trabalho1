@@ -66,22 +66,22 @@ public class tabuleiro {
                 case "D":
                     novaColuna++;
                     break;
-                case "Q":
-                    novaLinha--;
-                    novaColuna--;
-                    break;
-                case "E" :
-                    novaLinha--;
-                    novaColuna++;
-                    break;
-                case "Z":
-                    novaLinha++;
-                    novaColuna--;
-                    break;
-                case "C":
-                    novaLinha++;
-                    novaColuna++;
-                    break;
+                //case "Q":
+                    //novaLinha--;
+                    //novaColuna--;
+                    //break;
+                //case "E" :
+                   // novaLinha--;
+                    //novaColuna++;
+                    //break;
+                //case "Z":
+                  //  novaLinha++;
+                    //novaColuna--;
+                    //break;
+                //case "C":
+                  //  novaLinha++;
+                    //novaColuna++;
+                    //break;
                 default:
                     System.out.println("Entrada invalida, use W,A,S ou D para se mover.");
                     continue;
