@@ -2,6 +2,8 @@ package ufjf.dcc025.batalhadewesteros.Interface;
 
 import ufjf.dcc025.batalhadewesteros.Secundario.tabuleiro;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
+
+import java.util.EnumSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -42,7 +44,7 @@ public class partida {
 
         sb.append("\nTime 2:\n");
         for (personagem p : time2) {
-            sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getCasa(), p.getVidaAtual()));
+            sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
         }
 
         return sb.toString();
@@ -62,11 +64,32 @@ public class partida {
         int jogada = 1;
         int turno = 1;
         tabuleiro tabuleiro = new tabuleiro();
+        String[] direcao = {"Cima" , "Baixo", "Direita", "Esquerda"};
 
         while (time1.size() > 0 && time2.size() > 0) {
-            if(jogada % 2 == 1){
 
+            //jogada do jogador 1
+            if(jogada % 2 == 1){
+                String[] opcoes = new String[time1.size()];
+                for (int i = 0; i < time1.size(); i++)                //inicializa as opções de movimento
+                    opcoes[i] = time1.get(i).getNome();
+        
+
+                int escolhaPersonagem = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + "Selecione um personagem para mover:", 
+                            "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]); 
+
+                if (escolhaPersonagem >= 0 && escolhaPersonagem < time1.size()) {
+                    personagem selecionado = time1.get(escolhaPersonagem);            //elimina a necessidade de um swith
+
+                    int escolhaDirecao = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + "Mova para uma direção:", 
+                            "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]); 
+                    tabuleiro.movePersonagem(selecionado, escolhaDirecao);
+
+                    
+                }
             }
+
+            //jogada do jogador 2
             else{
 
             }
