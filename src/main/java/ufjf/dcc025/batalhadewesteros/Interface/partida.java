@@ -42,7 +42,7 @@ public class partida {
 
         sb.append("\nTime 2:\n");
         for (personagem p : time2) {
-            sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getCasa(), p.getVidaAtual()));
+          //  sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getCasa(), p.getVidaAtual()));
         }
 
         return sb.toString();
@@ -61,7 +61,7 @@ public class partida {
     public void doisJogadores(List <personagem> time1, List <personagem> time2){
         int jogada = 1;
         int turno = 1;
-        tabuleiro tabuleiro = new tabuleiro();
+       // tabuleiro tabuleiro = new tabuleiro();
 
         while (time1.size() > 0 && time2.size() > 0) {
             if(jogada % 2 == 1){

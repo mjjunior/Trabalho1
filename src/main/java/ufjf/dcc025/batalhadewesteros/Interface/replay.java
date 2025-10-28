@@ -2,11 +2,12 @@ package ufjf.dcc025.batalhadewesteros.Interface;
 
 import java.util.ArrayList;
 import java.util.List;
-import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
+import javax.swing.JOptionPane;
 
 public class replay {
     
    private final List<String> replayPartida;
+   private int cont = 0;
     
     public replay(){
         replayPartida = new ArrayList<>();
@@ -28,9 +29,57 @@ public class replay {
         replayPartida.add(rodada);
     }
     
-    public void exibirReplay(List<personagem> p , List<personagem> p2){
-        
+    public void exibirReplay(){
+             
+        String[] opcao = {"Ver Replay", "Sair"};
+            int escolha = JOptionPane.showOptionDialog(null, "Replay: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.QUESTION_MESSAGE, null, opcao, opcao[1]); 
+            
+           
+            if(escolha != 1)
+                menuOpcoes();
+            else{
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ?", "Confirmação", 
+                JOptionPane.YES_NO_OPTION);
+                
+                if(resposta == JOptionPane.YES_OPTION)
+                    JOptionPane.showMessageDialog(null, "Encerrando...");
+            }
          
     }
     
+    private void menuOpcoes(){
+        
+        String[] opcoes = {"Próximo", "Anterior", "Sair"};
+        int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[2]); 
+
+        switch (escolha) {
+            case 0:
+                imprime(cont++);
+                break;
+            case 1:
+                imprime(cont--);
+                break;
+            default:
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ? ", "Confirmação", 
+                                JOptionPane.YES_NO_OPTION);
+                if(resposta == JOptionPane.YES_OPTION)
+                    JOptionPane.showMessageDialog(null, "Encerrando...");
+                break;
+        }
+        
+    }
+    
+    private void imprime(int i){
+        
+        if(i >= 0 && i <= replayPartida.size()){
+                
+            String jogada = replayPartida.get(i);
+            JOptionPane.showMessageDialog(null, jogada);
+            
+            menuOpcoes();
+        }
+    }
+
 }
