@@ -4,30 +4,25 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
-//import java.util.Scanner;
 
 public class tabuleiro {
     ///declaracao do mapa do tabuleiro que guarda os personagens em casa posicao, e o tamanho do tabuleiro
     private personagem[][] mapa;
     private final int tamanho = 10;
-    //private Scanner sc;
 
-    //private List<personagem> time1; 
-    //private List<personagem> time2;
 
     ///construtor que recebe os times e os posiciona automaticamente no tabuleiro
     public tabuleiro(List<personagem> time1, List<personagem> time2){
         mapa = new personagem[tamanho][tamanho];
 
-        posicionarTime(time1, true); //lado direito do tabuleiro
-        posicionarTime(time2, false); //lado esquerdo do tabuleiro
-        //sc = new Scanner(System.in);
+        //lado direito do tabuleiro
+        posicionarTime(time1, true); 
 
-        //this.time1 = time1; //salvando o time 1
-        //this.time2 = time2; //salvando o time 2
+        //lado esquerdo do tabuleiro
+        posicionarTime(time2, false); 
     }
 
-    //função que posiciona automaticamente os personagens no tabuleiro
+    //posiciona automaticamente os personagens no tabuleiro
     private void posicionarTime(List<personagem> time, boolean esquerda){
         Random r = new Random();
 
@@ -36,11 +31,16 @@ public class tabuleiro {
             int linha, coluna;
             do{
                 linha = r.nextInt(tamanho);
+
+                //time do jogador, com as coluna de 0 a 3
                 if(esquerda){
-                    coluna = r.nextInt(4); //time do jogador, com as coluna de 0 a 3
+                    coluna = r.nextInt(4); 
+
+                //time do bot, com as colunas de 6 a 9
                 } else {
-                    coluna = 6 + r.nextInt(4); //time do bot, com as colunas de 6 a 9
+                    coluna = 6 + r.nextInt(4); 
                 }
+
             } while(mapa[linha][coluna] != null);
             
             mapa[linha][coluna] = p;
@@ -48,27 +48,31 @@ public class tabuleiro {
         }
     }
 
-    ///função para verificar se a posicao do personagem está dentro do tamanho do tabuleiro
+    ///verificar se a posicao do personagem está dentro do tamanho do tabuleiro
     public boolean dentroLimite(int linha, int coluna){
+
         if(linha>=0 && linha < tamanho && coluna>=0 && coluna < tamanho)
             return true;
+
         else
             return false;
     }
 
-    ///função para pegar o personagem em uma certa posição do tabuleiro
+    ///pegar o personagem em uma certa posição do tabuleiro
     public personagem getPersonagem(int linha, int coluna){
+
         //verifico se a posicao em questão está dentro do tabuleiro
         if(!dentroLimite(linha, coluna)){
-            ///System.out.println("Posição está fora do tabuleiro.");
             return null; //ja que a posição é invalida, retorna null
         }
+
+        //retorno o personagem que está na posição, porque não entrou no if
         else{
-            return mapa[linha][coluna]; //se n entrou no if de cima, quer dizer que é valida, então retorno o personagem que está na posição
+            return mapa[linha][coluna]; 
         }
     }
 
-    ///funcao para verificar se a posicao está vazia
+    ///verificar se a posicao está vazia
     public boolean verVazio(int linha, int coluna){
         if(dentroLimite(linha, coluna) == true && mapa[linha][coluna]==null)
             return true;
@@ -76,11 +80,12 @@ public class tabuleiro {
             return false;
     }
 
-    ///função para verificar quais personagens estão no alcance
+    ///verificar quais personagens estão no alcance
     public List<personagem> verificaAreaAtaque(personagem p){
         List<personagem> alvos = new ArrayList<>();
-
-        int alcance = p.getAlcance();///pega o alcance do personagem
+        
+        ///pega o alcance do personagem
+        int alcance = p.getAlcance();
         int linhaP = p.getLinha();
         int colunaP = p.getColuna();
 
@@ -108,7 +113,7 @@ public class tabuleiro {
         return alvos;
     }
 
-    ///função para mover o personagem no tabuleiro
+    ///mover o personagem no tabuleiro
     public boolean moverPersonagem(personagem p, int direcao){
         int novaLinha = p.getLinha();
         int novaColuna = p.getColuna();
@@ -127,21 +132,18 @@ public class tabuleiro {
                 novaColuna--;
                 break; 
             default:
-                ///System.out.println("Direção inválida.");
                 return false;
         }
 
         if(!dentroLimite(novaLinha, novaColuna)){
-            ///System.out.println("Movimento para fora dos limites do tabuleiro");
             return false;
         }
 
         if(!verVazio(novaLinha, novaColuna)){
-            ///System.out.println("A posição está ocupada");
             return false;
         }
 
-        //agora atualiza o tabuleiro
+        //por ultimo atualiza o tabuleiro
         mapa[p.getLinha()][p.getColuna()] = null;
         mapa[novaLinha][novaColuna] = p;
         p.setPosicao(novaLinha, novaColuna);
@@ -149,7 +151,10 @@ public class tabuleiro {
         return true;
     }
 
-    ///coisas antigas / ideias antigas que podem ser uteis ainda
+
+
+    ///coisas/ideias antigas que podem ser uteis ainda
+    /// mantido para ajustes futuros e referencia
     ///funcao para fazer a movimentacao do personagem(W,A,S,D,Q,E,Z,C) 
     // public void movimentacao(personagem p){
     //     boolean movimentoValido = false;

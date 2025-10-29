@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.*;
 
-public class bot {       
+public class bot { 
+
     private List<personagem> timeBot;
     private Random rand;
 
     public bot(){
         timeBot = new ArrayList<>();
-        
         rand = new Random();
         inicializarTimeBot();
     }
@@ -46,8 +46,8 @@ public class bot {
     public List<personagem> getTimeBot(){
         return timeBot;
     }
-    //acredito que pro bot ja esteja correto, agora é implmentar uma IA para ele jogar sozinho
-    //vou fazer uma bem simples, ela basicamente faz o bot ignorar o personagem morto e proucura o personagem mais perto, aí se tiver do lado atacam e se n tiver anda 1 pra perto
+ 
+    //função para ser usada na IA para encontrar o inimigo mais perto
     private personagem encontraMaisPerto(personagem p, List<personagem> inimigos){
         personagem alvo = null;
         int menorDistancia = Integer.MAX_VALUE;
@@ -95,13 +95,6 @@ public class bot {
 
             }
 
-            //se o inimigo ta do lado ele ataca
-            // if (Math.abs(linhaP - linhaA) <= 1 && Math.abs(colunaP - colunaA) <= 1){
-            //     p.atacar(alvo);
-            //     System.out.println(p.getNome() + " atacou " + alvo.getNome());
-            //     return;
-            // }
-
             //se n entrou no if, quer dizer que ta mais longe, então anda 1 pra perto
             int dir = -1;
             if(linhaA < linhaP){
@@ -122,6 +115,8 @@ public class bot {
     }
 }
 
+
+///ideias antigas mantidas para referencia:
 /// Crriei apenas para o teste e configuracao do replay
    //private static List<personagem> timeBot;
     //public bot(){
