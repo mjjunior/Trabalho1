@@ -138,7 +138,7 @@ public class partida {
 
 
 
-    
+
     public void doisJogadores(List<personagem> time1, List<personagem> time2) {
         int jogada = 1;
         int turno = 1;
@@ -162,6 +162,16 @@ public class partida {
             turno = jogada / 2 + 1;
             jogada++;
         }
+
+        if(time1.size() == 0)
+            JOptionPane.showMessageDialog(null, "Jogador 2 venceu!");
+        else 
+            JOptionPane.showMessageDialog(null, "Jogador 1 venceu!");
+        
+        menu jogo = new menu();
+        jogo.menuFimPartida(replay);
+
+        
     }
 
 }

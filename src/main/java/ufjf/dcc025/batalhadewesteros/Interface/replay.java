@@ -6,43 +6,27 @@ import javax.swing.JOptionPane;
 
 public class replay {
     
-   private final List<String> replayInterface;
+   private final List<String> interfac;
    private final List<String> log;
-   private int cont = 0;
-    
+   private int cont;
+                                                                 //IMPLEMENTAR PULAR PARA O COMEÇO E PRO FINAL
+                                                                 //IMPRIMIR AO CHAMAR A FUNÇÃO ASSISTIR REPLAY
     public replay(){
-        replayInterface = new ArrayList<>();
+        interfac = new ArrayList<>();
         log = new ArrayList<>();
+        cont = 0;
     }
     
-    public void salvaReplay(String rodada){
-        replayInterface.add(rodada);
+    public void salvaInterface(String interfaceAtual){
+        interfac.add(interfaceAtual);
     }   
     
-    public void salvaLog(String loaAtual){
-        log.add(loaAtual);
+    public void salvaLog(String logAtual){
+        log.add(logAtual);
     }
     
-    public void exibirReplay(){
-             
-        String[] opcao = {"Ver Replay", "Sair"};
-            int escolha = JOptionPane.showOptionDialog(null, "Replay: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
-            JOptionPane.QUESTION_MESSAGE, null, opcao, opcao[1]); 
-            
-           
-            if(escolha != 1)
-                menuOpcoes();
-            else{
-                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ?", "Confirmação", 
-                JOptionPane.YES_NO_OPTION);
-                
-                if(resposta == JOptionPane.YES_OPTION)
-                    JOptionPane.showMessageDialog(null, "Encerrando...");
-            }
-         
-    }
     
-    private void menuOpcoes(){
+    public void assistirReplay(){
         
         String[] opcoes = {"Próximo", "Anterior", "Sair"};
         int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
@@ -67,15 +51,15 @@ public class replay {
     
     private void imprime(int i){
         
-        if(i >= 0 && i <= replayInterface.size()){
+        if(i >= 0 && i <= interfac.size()){
                 
-            String jogada = replayInterface.get(i);
+            String jogada = interfac.get(i);
             JOptionPane.showMessageDialog(null, jogada);
             
             String logPartida = log.get(i);
             System.out.println(jogada);
             
-            menuOpcoes();
+            assistirReplay();
         }
         else
             System.out.println("Opção invalida! \nEncerrando..."); 

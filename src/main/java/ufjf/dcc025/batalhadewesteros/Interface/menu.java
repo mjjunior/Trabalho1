@@ -165,4 +165,39 @@ public class menu {
         partida partida = new partida();
         partida.doisJogadores(time1, time2);
     }
+
+
+
+
+
+    public void menuFimPartida(replay partida){
+        String[] opcao = {"Ver Replay", "Menu principal", "Sair"};
+        int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção:", "Menu Fim de partida ",  JOptionPane.DEFAULT_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, null, opcao, opcao[1]); 
+            
+        switch (escolha) {
+            case 0:
+                partida.assistirReplay();
+                break;
+
+            case 1:
+                menuPrincipal();
+                break;
+
+            case 2:
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do jogo?", "Confirmação", 
+                JOptionPane.YES_NO_OPTION);
+                
+                if(resposta == JOptionPane.YES_OPTION){
+                    JOptionPane.showMessageDialog(null, "Encerrando...");
+                    return;
+                }
+                else
+                    menuFimPartida(partida);
+                break;
+
+            default:
+                break;
+        }   
+    }
 }
