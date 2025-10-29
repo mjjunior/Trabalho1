@@ -60,7 +60,7 @@ public class tabuleiro {
     public personagem getPersonagem(int linha, int coluna){
         //verifico se a posicao em questão está dentro do tabuleiro
         if(!dentroLimite(linha, coluna)){
-            System.out.println("Posição está fora do tabuleiro.");
+            ///System.out.println("Posição está fora do tabuleiro.");
             return null; //ja que a posição é invalida, retorna null
         }
         else{
@@ -127,17 +127,17 @@ public class tabuleiro {
                 novaColuna--;
                 break; 
             default:
-                System.out.println("Direção inválida.");
+                ///System.out.println("Direção inválida.");
                 return false;
         }
 
         if(!dentroLimite(novaLinha, novaColuna)){
-            System.out.println("Movimento para fora dos limites do tabuleiro");
+            ///System.out.println("Movimento para fora dos limites do tabuleiro");
             return false;
         }
 
         if(!verVazio(novaLinha, novaColuna)){
-            System.out.println("A posição está ocupada");
+            ///System.out.println("A posição está ocupada");
             return false;
         }
 
