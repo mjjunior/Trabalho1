@@ -7,6 +7,7 @@ public interface personagem {
    public static final int ATAQUE_BASE = 20;
    public static final int DEFESA_BASE = 10;
    
+   
     List<Integer> posicao = new ArrayList<>(); 
     void atacar(personagem alvo);
     void recebeDano(float dano);
@@ -24,9 +25,11 @@ public interface personagem {
      * 
      */
     void setPosicao(int linha, int coluna);
+
+    void setTime(int time);
     
     public String getTipo();
     public int getLinha();
     public int getColuna();
-
+    public int getTime();
 }

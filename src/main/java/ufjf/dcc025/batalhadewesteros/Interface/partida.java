@@ -44,6 +44,7 @@ public class partida {
 
         sb.append("\nTime 2:\n");
         for (personagem p : time2) {
+
             sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
         }
         //salva replay
@@ -60,8 +61,6 @@ public class partida {
                             "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]); 
         return escolha;
     }
-
-
 
 
     public void umJogador(List<personagem> time){

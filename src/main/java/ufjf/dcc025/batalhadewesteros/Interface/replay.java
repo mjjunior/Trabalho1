@@ -2,57 +2,83 @@ package ufjf.dcc025.batalhadewesteros.Interface;
 
 import java.util.ArrayList;
 import java.util.List;
-import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
-import ufjf.dcc025.batalhadewesteros.Secundario.bot;
+import javax.swing.JOptionPane;
 
 public class replay {
     
-   private List<personagem> playerUm, playerDois;
-   private List<rodada> replayPlayerUm, replayPlayerDois;
+   private final List<String> replayInterface;
+   private final List<String> log;
+   private int cont = 0;
     
     public replay(){
-        
-        playerUm = new ArrayList<>();
-        playerDois = new ArrayList<>();
-        
-        replayPlayerUm = new ArrayList<>();
-        replayPlayerDois = new ArrayList<>();
+        replayInterface = new ArrayList<>();
+        log = new ArrayList<>();
     }
     
-    ///
-    /// OBS:
-    /// talvez aqui possamos simplificar para nao ter 2 modos diferentes
-    /// podemos ter apenas um modo jogo , onde ele recebe os parametros
-    /// como se fosse no modo multiplayer (lista pq, lista p2) e tratamos
-    /// essas listas na chamada , tipo , se o modo escolhido foi o single-player
-    /// o segundo parametro passado será a lista de personagens do bot
-    /// caso multiplayer enão seguimos normal
-    ///
-    public void jogoSinglePlayer(List<personagem> p){
-        
-        /// neste caso o Bbot é inicializado como se fosse o player 2  
-       playerUm   = new ArrayList<>(p);
-       playerDois = new ArrayList<>(bot.getPersonagem());
+    public void salvaReplay(String rodada){
+        replayInterface.add(rodada);
+    }   
+    
+    public void salvaLog(String loaAtual){
+        log.add(loaAtual);
     }
     
-    public void jogoMultiPlayer(List<personagem> p , List<personagem> p2){
+    public void exibirReplay(){
+             
+        String[] opcao = {"Ver Replay", "Sair"};
+            int escolha = JOptionPane.showOptionDialog(null, "Replay: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.QUESTION_MESSAGE, null, opcao, opcao[1]); 
+            
+           
+            if(escolha != 1)
+                menuOpcoes();
+            else{
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ?", "Confirmação", 
+                JOptionPane.YES_NO_OPTION);
+                
+                if(resposta == JOptionPane.YES_OPTION)
+                    JOptionPane.showMessageDialog(null, "Encerrando...");
+            }
          
-       playerUm   = new ArrayList<>(p);
-       playerDois = new ArrayList<>(p2);
     }
     
-    private void salvarRodadaPlayer1(personagem p , String movimento, String acao, int linha , int coluna){
+    private void menuOpcoes(){
         
-        /// Salvando as ações do player 1 
-        rodada r = new rodada(p.getNome(), movimento, acao, p.getTipo(), linha, coluna);
-        replayPlayerUm.add(r);           
-    }
-    
-    private void salvarRodadaPlayer2(personagem p , String movimento, String acao, int linha , int coluna){
+        String[] opcoes = {"Próximo", "Anterior", "Sair"};
+        int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[2]); 
+
+        switch (escolha) {
+            case 0:
+                imprime(cont++);
+                break;
+            case 1:
+                imprime(cont--);
+                break;
+            default:
+                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ? ", "Confirmação", 
+                                JOptionPane.YES_NO_OPTION);
+                if(resposta == JOptionPane.YES_OPTION)
+                    JOptionPane.showMessageDialog(null, "Encerrando...");
+                break;
+        }
         
-        /// Salvando as ações do player 12
-        rodada r = new rodada(p.getNome(), movimento, acao, p.getTipo(), linha, coluna);
-        replayPlayerDois.add(r);           
     }
     
+    private void imprime(int i){
+        
+        if(i >= 0 && i <= replayInterface.size()){
+                
+            String jogada = replayInterface.get(i);
+            JOptionPane.showMessageDialog(null, jogada);
+            
+            String logPartida = log.get(i);
+            System.out.println(jogada);
+            
+            menuOpcoes();
+        }
+        else
+            System.out.println("Opção invalida! \nEncerrando..."); 
+   }
+
 }

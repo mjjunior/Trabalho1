@@ -2,12 +2,13 @@ package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
 import java.util.List;
 import java.util.Random;
 
-public class linnister implements personagem {
+public class lannister implements personagem {
     
     private String nome;
     private final int VIDA_MAXIMA = 50;
     private int vidaAtual;
     private final int alcanceMaximo = 2;
+    private int time = 0;
     
      private void definePosicao(){
         Random gerador = new Random();
@@ -20,7 +21,7 @@ public class linnister implements personagem {
         posicao.add(numAleatorio2);
     }
     
-    public linnister(String nome){
+    public lannister(String nome){
         
         if(nome != null)
             this.nome = nome;
@@ -92,6 +93,17 @@ public class linnister implements personagem {
     @Override
     public String toString(){
         return " Nome: " + nome;
+    }
+
+    @Override
+    public void setTime(int time) {
+        if(time > 0 && time <= 2)
+            this.time = time;
+    }
+
+    @Override
+    public int getTime() {
+        return time;
     }
     
 }
