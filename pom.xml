@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>ufjf.dcc025.batalhadewesteros.batalhaDeWesteros</exec.mainClass>
+        <exec.mainClass>ufjf.dcc025.batalhadewesteros.BatalhaDeWesteros</exec.mainClass>
     </properties>
     <build>
         <pluginManagement>
@@ -25,7 +25,7 @@
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
-                                <mainClass>ufjf.dcc025.batalhadewesteros.batalhaDeWesteros</mainClass>
+                                <mainClass>ufjf.dcc025.batalhadewesteros.BatalhaDeWesteros</mainClass>
                             </manifest>
                         </archive>
                     </configuration>

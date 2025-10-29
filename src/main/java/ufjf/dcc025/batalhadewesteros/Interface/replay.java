@@ -35,18 +35,47 @@ public class replay {
     
     
     public void assistirReplay(){
+
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();      //limpa o console
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            for (int i = 0; i < 50; i++) System.out.println();
+        }
+
+
         
-        String[] opcoes = {"Próximo", "Anterior", "Sair"};
-        int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
-                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[2]); 
+        String[] opcoes = {"Ir para o inicio", "Próximo", "Anterior", "Pular para o final", "Sair"};
+        int escolha = JOptionPane.showOptionDialog(null, interfac.get(cont) + "\n" + "\n" + "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[4]);
+
+        System.out.println(log.get(cont));
 
         switch (escolha) {
             case 0:
-                imprime(cont++);
+                cont = 0;
+                assistirReplay();
                 break;
+
             case 1:
-                imprime(cont--);
+                cont++;
+                assistirReplay();
                 break;
+            
+            case 2:
+                cont--;
+                assistirReplay();
+                break;
+            
+            case 3:
+                cont = interfac.size() - 1;
+                assistirReplay();
+                break;
+
             default:
                 int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ? ", "Confirmação", 
                                 JOptionPane.YES_NO_OPTION);
@@ -56,21 +85,5 @@ public class replay {
         }
         
     }
-    
-    private void imprime(int i){
-        
-        if(i >= 0 && i <= interfac.size()){
-                
-            String jogada = interfac.get(i);
-            JOptionPane.showMessageDialog(null, jogada);
-            
-            String logPartida = log.get(i);
-            System.out.println(jogada);
-            
-            assistirReplay();
-        }
-        else
-            System.out.println("Opção invalida! \nEncerrando..."); 
-   }
-
 }
+    
