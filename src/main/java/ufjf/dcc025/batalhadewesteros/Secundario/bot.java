@@ -85,12 +85,21 @@ public class bot {
             int linhaA = alvo.getLinha();
             int colunaA = alvo.getColuna();
 
-            //se o inimigo ta do lado ele ataca
-            if (Math.abs(linhaP - linhaA) <= 1 && Math.abs(colunaP - colunaA) <= 1){
-                p.atacar(alvo);
-                System.out.println(p.getNome() + " atacou " + alvo.getNome());
+            List<personagem> alvos = t.verificaAreaAtaque(p);
+            if(!alvos.isEmpty()){
+                personagem alvoAtaque = alvos.get(0); //para simplificar ataca o primeiro que encontrar na lista
+                p.atacar(alvoAtaque);
+                System.out.println(p.getNome() + " atacou " + alvoAtaque.getNome());
                 return;
+
             }
+
+            //se o inimigo ta do lado ele ataca
+            // if (Math.abs(linhaP - linhaA) <= 1 && Math.abs(colunaP - colunaA) <= 1){
+            //     p.atacar(alvo);
+            //     System.out.println(p.getNome() + " atacou " + alvo.getNome());
+            //     return;
+            // }
 
             //se n entrou no if, quer dizer que ta mais longe, então anda 1 pra perto
             int dir = -1;
