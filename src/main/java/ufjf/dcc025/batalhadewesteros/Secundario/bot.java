@@ -66,6 +66,7 @@ public class bot {
 
         return alvo;
     }
+    
     //agora que sei o alvo mais perto, tem que fazer ele andar ou atacar
     public void jogar(tabuleiro t, List<personagem> inimigos){
         for(int i=0; i < timeBot.size(); i++){

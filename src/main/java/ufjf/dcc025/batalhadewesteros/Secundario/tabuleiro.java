@@ -33,26 +33,15 @@ public class tabuleiro {
 
         for(personagem p : time){
             
-            int linha =0;
-            int coluna =0;
-
-        ///vai tentar ate achar uma posicao livre
-        while(mapa[linha][coluna] != null){
-            linha = r.nextInt(tamanho);
-            if(esquerda){
-                ///aqui to pensando que pro time do jogador vai ter as colunas de 0 a 3
-                coluna = r.nextInt(4);
-            }
-            else {
-                ///aqui entra pro bot, que vai ter as colunas de 6 a 9
-                coluna = 6 + r.nextInt(4);
-            }
-            
-            //se n entrar entar no if nem no else, a casa ta vazia então saio do while
-            if(mapa[linha][coluna] == null){
-                break;
+            int linha, coluna;
+            do{
+                linha = r.nextInt(tamanho);
+                if(esquerda){
+                    coluna = r.nextInt(4); //time do jogador, com as coluna de 0 a 3
+                } else {
+                    coluna = 6 + r.nextInt(4); //time do bot, com as colunas de 6 a 9
                 }
-            }
+            } while(mapa[linha][coluna] != null);
             
             mapa[linha][coluna] = p;
             p.setPosicao(linha, coluna);
@@ -110,7 +99,7 @@ public class tabuleiro {
 
                 //verifico se tem alguem na posicao
                 personagem alvo = mapa[i][j];
-                if(alvo != null && alvo.getVidaAtual() > 0){
+                if(alvo != null){
                     alvos.add(alvo);
                 }
             }
