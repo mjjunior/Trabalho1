@@ -46,7 +46,7 @@ public class partida {
         for (personagem p : time2) {
             sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
         }
-
+        //salva replay
         return sb.toString();
     }
 
@@ -54,7 +54,8 @@ public class partida {
 
 
 
-    private int selecionaPersonagem(int turno, tabuleiro tabuleiro, List <personagem> time1, List <personagem> time2, String[] opcoes, String Jogador){
+    //Exibe a opção de escolha do personagem para mover
+    private int selecionaPersonagemMover(int turno, tabuleiro tabuleiro, List <personagem> time1, List <personagem> time2, String[] opcoes, String Jogador){
         int escolha = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + Jogador +" selecione um personagem para mover:", 
                             "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]); 
         return escolha;
@@ -69,17 +70,19 @@ public class partida {
     
 
 
+
+
     public void doisJogadores(List <personagem> time1, List <personagem> time2){
         int jogada = 1;
         int turno = 1;
-        tabuleiro tabuleiro = new tabuleiro(time1, time2);
+        tabuleiro tabuleiro = new tabuleiro(time1, time2);                             //inicialização de variaveis
         String[] direcao = {"Cima" , "Baixo", "Direita", "Esquerda", "Voltar"};
 
         while (time1.size() > 0 && time2.size() > 0) {
 
             //jogada do jogador 1
             if(jogada % 2 == 1){
-                String[] opcoes = new String[time1.size()];
+                String[] opcoes = new String[time1.size()];           
                 for (int i = 0; i < time1.size(); i++)                //inicializa as opções de movimento
                     opcoes[i] = time1.get(i).getNome();
         
@@ -88,18 +91,39 @@ public class partida {
                 personagem selecionado = null;
                 /// O do While serve para poder ter a opção de voltar e escolher um outro personagem para mover
                 do{                                
-                    int escolhaPersonagem = selecionaPersonagem(turno, tabuleiro, time1, time2, opcoes, "Jogador 1");
-
-                    if (escolhaPersonagem >= 0 && escolhaPersonagem < time1.size()) {
+                    int escolhaPersonagem = selecionaPersonagemMover(turno, tabuleiro, time1, time2, opcoes, "Jogador 1");
+                    
+                    //apenas verifica se a escolha foi valida
+                    if (escolhaPersonagem >= 0 && escolhaPersonagem < time1.size()) {        
                         selecionado = time1.get(escolhaPersonagem);            //elimina a necessidade de um swith
 
                         escolhaDirecao = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + "Mova para uma direção:", 
                                 "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
                                 
                                 
-                        if(escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)){      //se entrou aqui é pq não vai ter loop
-                            
+                        if(escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)){    //se entrou aqui é pq está tudo certo e vai encerrar o loop
+                            List<personagem> alvosDisponiveis = tabuleiro.verificaAreaAtaque(selecionado); 
+
+                            if(alvosDisponiveis.isEmpty()){
+                                break;
+                            }
+
+                            else if(alvosDisponiveis.size() == 1){
+                                selecionado.atacar(alvosDisponiveis.getFirst());
+                            }
+
+                            else{
+                                String[] alvo = new String[alvosDisponiveis.size()];  
+                                for (int i = 0; i < alvosDisponiveis.size(); i++)                
+                                    opcoes[i] = time1.get(i).getNome();
+
+                                int escolhaAlvo = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" + 
+                                "Escolha um oponente para atacar", "Turno " + turno,  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, alvo, alvo[0]);
+
+                                selecionado.atacar(alvosDisponiveis.get(escolhaAlvo));
+                            }
                         }
+
                         else if(escolhaDirecao < 4)                                                            //movimentação invalida
                             JOptionPane.showMessageDialog(null, "Direção invalida! Escolha um outro personagem" +
                                                           " para se mover ou mova para uma posição valida.");
