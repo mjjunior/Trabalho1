@@ -21,8 +21,16 @@ public class replay {
         interfac.add(interfaceAtual);
     }   
     
+    public void removeInterface(){
+        interfac.removeLast();
+    }
+
     public void salvaLog(String logAtual){
         log.add(logAtual);
+    }
+
+    public void removeLog(){
+        log.removeLast();
     }
     
     
