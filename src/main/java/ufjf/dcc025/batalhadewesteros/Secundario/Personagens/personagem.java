@@ -1,5 +1,5 @@
 package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public interface personagem {

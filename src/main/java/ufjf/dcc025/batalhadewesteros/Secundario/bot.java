@@ -54,13 +54,10 @@ public class bot {
 
         for(int i=0; i < inimigos.size(); i++){
             personagem inimigo = inimigos.get(i); //pego o inimigo na posicao i
-
-            if(inimigo.getVidaAtual() > 0){ //ignoro os inimigos mortos
                 int dist = Math.abs(p.getLinha() - inimigo.getLinha()) + Math.abs(p.getColuna() - inimigo.getColuna()); //distancia entre dois pontos
                     if(dist < menorDistancia){
                         menorDistancia = dist;
                         alvo = inimigo;
-                    }
             }
         }
 
@@ -71,10 +68,6 @@ public class bot {
     public void jogar(tabuleiro t, List<personagem> inimigos){
         for(int i=0; i < timeBot.size(); i++){
             personagem p = timeBot.get(i);
-
-            if(p.getVidaAtual() <= 0){
-                continue; //ignorar personagens mortos
-            }
 
             personagem alvo = encontraMaisPerto(p, inimigos);
             if(alvo == null){
