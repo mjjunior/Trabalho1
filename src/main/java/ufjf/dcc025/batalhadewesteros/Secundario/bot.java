@@ -36,13 +36,6 @@ public class bot {
         timeBot.add(p);
     }
 
-    //função para ser usada quando o jogador clica em voltar
-    public void removerUltimoPersonagem(){
-        if(!timeBot.isEmpty()){
-            timeBot.removeLast();
-        }
-    }
-
     //função para retornar o time do bot
     public List<personagem> getTimeBot(){
         return timeBot;
@@ -147,5 +140,10 @@ public class bot {
 //                 p.atacar(alvoAtaque);
 //                 //System.out.println(p.getNome() + " atacou " + alvoAtaque.getNome());
 //                 return;
-
-//             }
+//}
+//função para ser usada quando o jogador clica em voltar
+    // public void removerUltimoPersonagem(){
+    //     if(!timeBot.isEmpty()){
+    //         timeBot.removeLast();
+    //     }
+    // }
