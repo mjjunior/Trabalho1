@@ -114,7 +114,7 @@ public class tabuleiro {
     }
 
     ///mover o personagem no tabuleiro
-    public boolean moverPersonagem(personagem p, int direcao){
+    public boolean verificaMoverPersonagem(personagem p, int direcao){
         int novaLinha = p.getLinha();
         int novaColuna = p.getColuna();
 
@@ -143,12 +143,38 @@ public class tabuleiro {
             return false;
         }
 
-        //por ultimo atualiza o tabuleiro
-        mapa[p.getLinha()][p.getColuna()] = null;
-        mapa[novaLinha][novaColuna] = p;
-        p.setPosicao(novaLinha, novaColuna);
+        
+        
 
         return true;
+    }
+
+    public void movePersonagem(personagem p, int direcao){
+        int novaLinha = p.getLinha();
+        int novaColuna = p.getColuna();
+        
+        if(verificaMoverPersonagem(p, direcao)){
+            switch(direcao){
+                case 0: //cima
+                    novaLinha--;
+                    break;
+                case 1: //baixo
+                    novaLinha++;
+                    break;
+                case 2: //direita
+                    novaColuna++;
+                    break;
+                case 3: //esquerda
+                    novaColuna--;
+                    break; 
+            }
+            mapa[p.getLinha()][p.getColuna()] = null;
+            mapa[novaLinha][novaColuna] = p;
+            p.setPosicao(novaLinha, novaColuna);
+            return;
+        }
+        System.out.println("ERRO! MOVIMENTO INVALIDO!");
+
     }
 
 
