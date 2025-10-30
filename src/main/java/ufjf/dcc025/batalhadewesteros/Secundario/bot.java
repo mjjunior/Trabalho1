@@ -87,7 +87,8 @@ public class bot {
                 dir = 3; //vai pra esquerda
             }
 
-            t.moverPersonagem(p, dir);
+            if(t.verificaMoverPersonagem(p, dir))
+                t.movePersonagem(p, dir);
             
             //agora verifica se pode atacar depois do movimento
             List<personagem> alvos = t.verificaAreaAtaque(p);

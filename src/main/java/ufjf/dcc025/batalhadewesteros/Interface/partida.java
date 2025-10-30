@@ -109,7 +109,9 @@ public class partida {
                                 " mova " + selecionado.getNome() + " para uma direção:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, 
                                 JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
 
-                if (escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)) { // se entrou aqui é pq está tudo e certo e vai encerrar o loop
+                if (escolhaDirecao < 4 && tabuleiro.verificaMoverPersonagem(selecionado, escolhaDirecao)) { // se entrou aqui é pq está tudo e certo e vai encerrar o loop
+                    tabuleiro.movePersonagem(selecionado, escolhaDirecao);
+
                     replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
 
                     if(turno > 1){
@@ -152,18 +154,29 @@ public class partida {
                     else {
                         String[] alvo = new String[alvosDisponiveis.size()];
                         for (int i = 0; i < alvosDisponiveis.size(); i++)
-                            opcoes[i] = time1.get(i).getNome();
+                            alvo[i] = time1.get(i).getNome();
 
                         int escolhaAlvo = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, time1, time2) + "\n" +
                         "Escolha um oponente para atacar", "Turno " + turno, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, alvo, alvo[0]);
 
                         selecionado.atacar(alvosDisponiveis.get(escolhaAlvo));
 
-                        replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
-                        log = selecionado.getNome() + " atacou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
-                        System.out.println(log);
-                        sb.append(log);
-                        replay.salvaLog(sb.toString());
+                        //se o ataque elimnou
+                        if(alvosDisponiveis.get(escolhaAlvo).getVidaAtual() <= 0){
+                            log = selecionado.getNome() + " eliminou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
+                            alvosDisponiveis.remove(alvosDisponiveis.get(escolhaAlvo));
+                            replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                            System.out.println(log);
+                            sb.append(log);
+                            replay.salvaLog(sb.toString());
+                        }
+                        else{
+                            replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                            log = selecionado.getNome() + " atacou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
+                            System.out.println(log);
+                            sb.append(log);
+                            replay.salvaLog(sb.toString());
+                        }
                     }
                 }
 
@@ -172,7 +185,7 @@ public class partida {
 
                 cont++;    
             }
-        } while (escolhaDirecao == 4 || !tabuleiro.moverPersonagem(selecionado, escolhaDirecao)); // caso selecione voltar ou movimente errado
+        } while (escolhaDirecao == 4 || !tabuleiro.verificaMoverPersonagem(selecionado, escolhaDirecao)); // caso selecione voltar ou movimente errado
         return;
     }
 
