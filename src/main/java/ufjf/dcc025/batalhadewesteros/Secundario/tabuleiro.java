@@ -104,7 +104,7 @@ public class tabuleiro {
 
                 //verifico se tem alguem na posicao
                 personagem alvo = mapa[i][j];
-                if(alvo != null){
+                if(alvo != null && alvo.getTime()!= p.getTime()){
                     alvos.add(alvo);
                 }
             }

@@ -13,33 +13,34 @@ public class bot {
     public bot(){
         timeBot = new ArrayList<>();
         rand = new Random();
-        inicializarTimeBot();
+        //inicializarTimeBot();
     }
 
-    //função para inicializar o time do bot com 3 personagens aleatorios
-    private void inicializarTimeBot(){
-        for(int i=0; i<3; i++){
-            personagem p = escolherPersonagem();
-            timeBot.add(p);
-        }
-    }
-
-    //função para escolher um personagem aleatorio para o time do bot
-    public personagem escolherPersonagem(){
+    //função para escolher um personagem aleatorio para o time do bot quando for chamado pelo menu;
+    public void escolherPersonagem(){
         int escolha = rand.nextInt(3); //ja que temos 3 personagens, vou usar para o switch, se for 0 é um personagem, 1 outro, ...
+        personagem p;
         switch(escolha){
             case 0:
-                return new stark("Stark");
+                p = new stark("Stark");
+                break;
             case 1:
-                return new lannister("Lannister");
+                p = new lannister("Lannister");
+                break;
             default:
-                return new targaryen("Targaryen");
+                p = new targaryen("Targaryen");
+                break;
         }
+
+        p.setTime(2); //o bot é sempre o time 2
+        timeBot.add(p);
     }
 
-    //função para adicionar um personagem ao time do bot - a gente pode usar no menu ou na partida eu acho, aí ficaria um pouco mais facil acho
-    public void adicionarPersonagem(personagem p){
-        timeBot.add(p);
+    //função para ser usada quando o jogador clica em voltar
+    public void removerUltimoPersonagem(){
+        if(!timeBot.isEmpty()){
+            timeBot.removeLast();
+        }
     }
 
     //função para retornar o time do bot
@@ -47,6 +48,7 @@ public class bot {
         return timeBot;
     }
  
+
     //função para ser usada na IA para encontrar o inimigo mais perto
     private personagem encontraMaisPerto(personagem p, List<personagem> inimigos){
         personagem alvo = null;
@@ -74,21 +76,12 @@ public class bot {
                 continue; //nenhum inimigo enontrado 
             }
 
+            //primeiro tenta mover
             int linhaP = p.getLinha();
             int colunaP = p.getColuna();
             int linhaA = alvo.getLinha();
             int colunaA = alvo.getColuna();
 
-            List<personagem> alvos = t.verificaAreaAtaque(p);
-            if(!alvos.isEmpty()){
-                personagem alvoAtaque = alvos.get(0); //para simplificar ataca o primeiro que encontrar na lista
-                p.atacar(alvoAtaque);
-                System.out.println(p.getNome() + " atacou " + alvoAtaque.getNome());
-                return;
-
-            }
-
-            //se n entrou no if, quer dizer que ta mais longe, então anda 1 pra perto
             int dir = -1;
             if(linhaA < linhaP){
                 dir =0; //vai pra cima
@@ -102,8 +95,18 @@ public class bot {
             }
 
             t.moverPersonagem(p, dir);
-            System.out.println(p.getNome() + " moveu para o seguinte alvo: "+ alvo.getNome() );
-            continue;
+            
+            //agora verifica se pode atacar depois do movimento
+            List<personagem> alvos = t.verificaAreaAtaque(p);
+            for(int j=0; j < alvos.size(); j++){
+                personagem possivel = alvos.get(j);
+
+                if(possivel.getTime() != p.getTime()){
+                    p.atacar(possivel);
+                    break;
+                }
+            }
+            
         }
     }
 }
@@ -128,3 +131,21 @@ public class bot {
     /// 
     //public static List<personagem> getPersonagem(){return timeBot;} 
 
+        //função para inicializar o time do bot com 3 personagens aleatorios
+    //private void inicializarTimeBot(){
+        //for(int i=0; i<3; i++){
+           // personagem p = escolherPersonagem();
+            //timeBot.add(p);
+        //}
+    //}
+     //função para adicionar um personagem ao time do bot - a gente pode usar no menu ou na partida eu acho, aí ficaria um pouco mais facil acho
+    //public void adicionarPersonagem(personagem p){
+       // timeBot.add(p);
+    //}
+// if(!alvos.isEmpty()){
+//                 personagem alvoAtaque = alvos.get(0); //para simplificar ataca o primeiro que encontrar na lista
+//                 p.atacar(alvoAtaque);
+//                 //System.out.println(p.getNome() + " atacou " + alvoAtaque.getNome());
+//                 return;
+
+//             }
