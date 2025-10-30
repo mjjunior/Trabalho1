@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import ufjf.dcc025.batalhadewesteros.Secundario.bot;
 import ufjf.dcc025.batalhadewesteros.Secundario.tabuleiro;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
@@ -179,8 +180,29 @@ public class partida {
 
 
 
-    public void umJogador(List<personagem> time) {
-        JOptionPane.showMessageDialog(null, "Partida um Jogador");
+    public void umJogador(List<personagem> time, bot oponente) {
+        int jogada = 1;
+        tabuleiro tabuleiro = new tabuleiro(time, oponente.getTimeBot()); // inicialização de variaveis
+        String jogador;
+        replay replay = new replay();
+
+        while (time.size() > 0 && oponente.getTimeBot().size() > 0) {
+
+            // jogada do jogador 1
+            if (jogada % 2 == 1) {
+                jogador = "Jogador 1";
+                rodada(time, oponente.getTimeBot(), jogador, jogada, tabuleiro, time, oponente.getTimeBot(), replay);
+            }
+
+            // jogada do jogador 2
+            else {
+                oponente.jogar(tabuleiro, time);
+                
+            }
+
+            
+            jogada++;
+        }
     }
 
 
