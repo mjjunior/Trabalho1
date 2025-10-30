@@ -9,7 +9,7 @@ import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
 public class partida {
 
-    private String imprimeInteface(tabuleiro tabuleiro, List<personagem> time1, List<personagem> time2) { // transfora a interface em uma string
+    private String stringInteface(tabuleiro tabuleiro, List<personagem> time1, List<personagem> time2) { // transfora a interface em uma string
         StringBuilder sb = new StringBuilder();
 
         /// CABEÇALHO
@@ -24,7 +24,7 @@ public class partida {
             sb.append(i + "  ");
             for (int j = 0; j < 10; j++) {
                 if (tabuleiro.verVazio(i, j)) {
-                    sb.append(". ");
+                    sb.append(" . ");
                 } else {
                     personagem p = tabuleiro.getPersonagem(i, j);
                     char inicial = p.getTipo().charAt(0);
@@ -61,7 +61,7 @@ public class partida {
         String[] opcoes, String Jogador,List<personagem> timePrincipal, List<personagem> timeSecundario) 
         {
 
-        int escolha = JOptionPane.showOptionDialog(null,imprimeInteface(tabuleiro, timePrincipal, timeSecundario) + "/n" + "/n" + Jogador
+        int escolha = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, timePrincipal, timeSecundario) + "\n" + "\n" + Jogador
         + " selecione um personagem para mover:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
         return escolha;
@@ -72,12 +72,15 @@ public class partida {
 
 
     private void rodada(List<personagem> time1, List<personagem> time2, String jogador, int turno, tabuleiro tabuleiro,
-                         List<personagem> timePrincipal, List<personagem> timeSecundario) 
+                         List<personagem> timePrincipal, List<personagem> timeSecundario, replay replay) 
         {
 
         String[] direcao = { "Cima", "Baixo", "Direita", "Esquerda", "Voltar" };
         int escolhaDirecao = 0;
         personagem selecionado = null;
+        String log;
+        StringBuilder sb = new StringBuilder();
+        int cont = turno;
 
         String[] opcoes = new String[time1.size()];
         for (int i = 0; i < time1.size(); i++) // inicializa as opções de movimento
@@ -87,24 +90,62 @@ public class partida {
         /// O do While serve para poder ter a opção de voltar e escolher um outro personagem para mover
         do {
             int escolhaPersonagem = selecionaPersonagemMover(turno, tabuleiro, time1, time2, opcoes, jogador, timePrincipal, timeSecundario);
+            
+            if(cont == 1){
+                replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                log = "TURNO 1";
+                System.out.println(log);
+                sb.append(log);
+                replay.salvaLog(sb.toString());
+            }
+            
 
             // apenas verifica se a escolha foi valida
             if (escolhaPersonagem >= 0 && escolhaPersonagem < time1.size()) {
-                selecionado = time1.get(escolhaPersonagem); // elimina a necessidade de um swith
+                selecionado = time1.get(escolhaPersonagem); 
 
-                escolhaDirecao = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, timePrincipal, timeSecundario) + "/n" + "/n" + "Mova para uma direção:",
-                        "Turno " + turno, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
+                escolhaDirecao = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, timePrincipal, timeSecundario) + "\n" + "\n" + jogador +
+                                "mova " + selecionado.getNome() + " para uma direção:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, 
+                                JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
 
                 if (escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)) { // se entrou aqui é pq está tudo e certo e vai encerrar o loop
+                    replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+
+                    if(turno > 1){
+                        log = "TURNO " + turno + "\n" + jogador +  " moveu " + selecionado.getNome() + " para posição " + selecionado.getPosicao();
+                        System.out.println(log);
+                        sb.append(log);
+                        replay.salvaLog(sb.toString());
+                    }
+                    else{
+                        log = jogador +  " moveu " + selecionado.getNome() + " para posição " + selecionado.getPosicao();
+                        System.out.println(log);
+                        sb.append(log);
+                        replay.salvaLog(sb.toString());
+                    }
+                    
 
                     List<personagem> alvosDisponiveis = tabuleiro.verificaAreaAtaque(selecionado);
 
                     if (alvosDisponiveis.isEmpty()) {
-                        break;
+                        JOptionPane.showMessageDialog(null, "Não havia nenhum oponente na área do ataque de " + selecionado.getNome());
+                        
+                        replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                        log = "Não havia nenhum oponente na área do ataque de " + selecionado.getNome()  + "\n";
+                        System.out.println(log);
+                        sb.append(log);
+                        replay.salvaLog(sb.toString());
                     }
 
                     else if (alvosDisponiveis.size() == 1) {
                         selecionado.atacar(alvosDisponiveis.getFirst());
+                        JOptionPane.showMessageDialog(null, selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome());
+                        
+                        replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                        log = selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome() + "\n";
+                        System.out.println(log);
+                        sb.append(log);
+                        replay.salvaLog(sb.toString());
                     }
 
                     else {
@@ -112,16 +153,23 @@ public class partida {
                         for (int i = 0; i < alvosDisponiveis.size(); i++)
                             opcoes[i] = time1.get(i).getNome();
 
-                        int escolhaAlvo = JOptionPane.showOptionDialog(null, imprimeInteface(tabuleiro, time1, time2) + "/n" + "/n" +
+                        int escolhaAlvo = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, time1, time2) + "\n" +
                         "Escolha um oponente para atacar", "Turno " + turno, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, alvo, alvo[0]);
 
                         selecionado.atacar(alvosDisponiveis.get(escolhaAlvo));
+
+                        replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                        log = selecionado.getNome() + " atacou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
+                        System.out.println(log);
+                        sb.append(log);
+                        replay.salvaLog(sb.toString());
                     }
                 }
 
                 else if (escolhaDirecao < 4) // movimentação invalida
                     JOptionPane.showMessageDialog(null, "Direção invalida! Escolha um outro personagem" + " para se mover ou mova para uma posição valida.");
 
+                cont++;    
             }
         } while (escolhaDirecao == 4 || !tabuleiro.moverPersonagem(selecionado, escolhaDirecao)); // caso selecione voltar ou movimente errado
     }
@@ -141,25 +189,25 @@ public class partida {
 
     public void doisJogadores(List<personagem> time1, List<personagem> time2) {
         int jogada = 1;
-        int turno = 1;
         tabuleiro tabuleiro = new tabuleiro(time1, time2); // inicialização de variaveis
         String jogador;
+        replay replay = new replay();
 
         while (time1.size() > 0 && time2.size() > 0) {
 
             // jogada do jogador 1
             if (jogada % 2 == 1) {
                 jogador = "Jogador 1";
-                rodada(time1, time2, jogador, turno, tabuleiro, time1, time2);
+                rodada(time1, time2, jogador, jogada, tabuleiro, time1, time2, replay);
             }
 
             // jogada do jogador 2
             else {
                 jogador = "Jogador 2";
-                rodada(time2, time1, jogador, turno, tabuleiro, time1, time2);
+                rodada(time2, time1, jogador, jogada, tabuleiro, time1, time2, replay);
             }
 
-            turno = jogada / 2 + 1;
+            
             jogada++;
         }
 
