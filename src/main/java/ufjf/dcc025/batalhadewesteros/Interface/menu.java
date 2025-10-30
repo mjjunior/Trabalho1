@@ -58,18 +58,21 @@ public class menu {
             switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
             case 0:
                 stark personagem1 = new stark(null);
+                personagem1.setTime(1);
                 time.add(personagem1);
                 oponente.escolherPersonagem();
                 break;
 
             case 1:
                 lannister personagem2 = new lannister(null);
+                personagem2.setTime(1);
                 time.add(personagem2);
                 oponente.escolherPersonagem();
                 break;
 
             case 2:
                 targaryen personagem3 = new targaryen(null);
+                personagem3.setTime(1);
                 time.add(personagem3);
                 oponente.escolherPersonagem();
                 break;
@@ -82,6 +85,7 @@ public class menu {
             }
             
             JOptionPane.showMessageDialog(null, "Sua equipe atual é: " + time);
+            JOptionPane.showMessageDialog(null, "A equipe atual do oponente é: " + oponente.getTimeBot());
         }
         JOptionPane.showMessageDialog(null, "Iniciando partida...");
 
@@ -117,16 +121,19 @@ public class menu {
                 switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
                 case 0:
                     stark personagem1 = new stark(null);
+                    personagem1.setTime(1);
                     time1.add(personagem1);
                     break;
 
                 case 1:
                     lannister personagem2 = new lannister(null);
+                    personagem2.setTime(1);
                     time1.add(personagem2);
                     break;
 
                 case 2:
                     targaryen personagem3 = new targaryen(null);
+                    personagem3.setTime(1);
                     time1.add(personagem3);
                     break;
 
@@ -147,16 +154,19 @@ public class menu {
                 switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
                 case 0:
                     stark personagem1 = new stark(null);
+                    personagem1.setTime(2);
                     time2.add(personagem1);
                     break;
 
                 case 1:
                     lannister personagem2 = new lannister(null);
+                    personagem2.setTime(2);
                     time2.add(personagem2);
                     break;
 
                 case 2:                        
                     targaryen personagem3 = new targaryen(null);
+                    personagem3.setTime(2);
                     time2.add(personagem3);
                     break;
 
