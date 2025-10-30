@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
+import ufjf.dcc025.batalhadewesteros.Secundario.bot;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.lannister;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.stark;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.targaryen;
@@ -39,6 +40,7 @@ public class menu {
         List<personagem> time = new ArrayList<>(); 
         String[] opcoes = {"Stark", "Lannister", "Targaryen", "voltar"};
         int escolha;
+        bot oponente = new bot();
         
 
         for(int i = 1; i <= 3; i++){
@@ -57,21 +59,25 @@ public class menu {
             case 0:
                 stark personagem1 = new stark(null);
                 time.add(personagem1);
+                oponente.escolherPersonagem();
                 break;
 
             case 1:
                 lannister personagem2 = new lannister(null);
                 time.add(personagem2);
+                oponente.escolherPersonagem();
                 break;
 
             case 2:
                 targaryen personagem3 = new targaryen(null);
                 time.add(personagem3);
+                oponente.escolherPersonagem();
                 break;
 
             default:                                //volta
                 i = i-2;                            //o for vai fazer i++ após isso
                 time.removeLast();
+                oponente.getTimeBot().removeLast();  
                 break;
             }
             
@@ -80,7 +86,7 @@ public class menu {
         JOptionPane.showMessageDialog(null, "Iniciando partida...");
 
         partida partida = new partida();
-        partida.umJogador(time);
+        partida.umJogador(time, oponente);
     }
 
 
