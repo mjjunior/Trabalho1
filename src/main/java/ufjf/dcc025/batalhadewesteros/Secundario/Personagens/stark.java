@@ -1,7 +1,6 @@
 package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class stark implements personagem{
 
