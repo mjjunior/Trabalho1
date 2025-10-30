@@ -65,6 +65,7 @@ public class lannister implements personagem {
 
     @Override
     public void setPosicao(int linha, int coluna) {
+        posicao.clear();
         posicao.add(linha);
         posicao.add(coluna);
         //informar acao no menu

@@ -13,9 +13,9 @@ public class partida {
         StringBuilder sb = new StringBuilder();
 
         /// CABEÇALHO
-        sb.append("   ");
+        sb.append("    ");
         for (int j = 0; j < 10; j++) {
-            sb.append(j + " ");
+            sb.append(j + "  ");
         }
         sb.append("\n");
 
@@ -24,7 +24,7 @@ public class partida {
             sb.append(i + "  ");
             for (int j = 0; j < 10; j++) {
                 if (tabuleiro.verVazio(i, j)) {
-                    sb.append(" . ");
+                    sb.append(" _ ");
                 } else {
                     personagem p = tabuleiro.getPersonagem(i, j);
                     char inicial = p.getTipo().charAt(0);
@@ -105,7 +105,7 @@ public class partida {
                 selecionado = time1.get(escolhaPersonagem); 
 
                 escolhaDirecao = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, timePrincipal, timeSecundario) + "\n" + "\n" + jogador +
-                                "mova " + selecionado.getNome() + " para uma direção:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, 
+                                " mova " + selecionado.getNome() + " para uma direção:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, 
                                 JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
 
                 if (escolhaDirecao < 4 && tabuleiro.moverPersonagem(selecionado, escolhaDirecao)) { // se entrou aqui é pq está tudo e certo e vai encerrar o loop
@@ -172,6 +172,7 @@ public class partida {
                 cont++;    
             }
         } while (escolhaDirecao == 4 || !tabuleiro.moverPersonagem(selecionado, escolhaDirecao)); // caso selecione voltar ou movimente errado
+        return;
     }
 
 
