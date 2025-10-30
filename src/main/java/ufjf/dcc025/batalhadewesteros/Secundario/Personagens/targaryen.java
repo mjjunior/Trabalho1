@@ -1,28 +1,17 @@
 package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class targaryen implements personagem{
     
+    private List<Integer> posicao = new ArrayList<>();
     private String nome;
     private final int VIDA_MAXIMA = 45; 
     private int vidaAtual;
     private final int alcanceMaximo = 3;
     private int time = 0;
-    
-     private void definePosicao(){
-        Random gerador = new Random();
-        int numAleatorio1, numAleatorio2;
-        
-        numAleatorio1= gerador.nextInt(10);
-        numAleatorio2 = gerador.nextInt(10);
-        
-        posicao.add(numAleatorio1);
-        posicao.add(numAleatorio2);
-        
-        //informar acao no menu
-    }
     
     public targaryen(String nome){
         
@@ -31,7 +20,7 @@ public class targaryen implements personagem{
         this.nome = "targaryen";
         
         vidaAtual = VIDA_MAXIMA;
-        definePosicao();
+   
     }
 
     @Override

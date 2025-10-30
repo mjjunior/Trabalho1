@@ -8,7 +8,6 @@ public interface personagem {
    public static final int DEFESA_BASE = 10;
    
    
-    List<Integer> posicao = new ArrayList<>(); 
     void atacar(personagem alvo);
     void recebeDano(float dano);
     
@@ -16,7 +15,6 @@ public interface personagem {
     int getVidaAtual();
     int getVidaMaxima();
     int getAlcance();
-    List<Integer> getPosicao();
     
     /**
      * Definne a posição do personagem no tabuleiro 
@@ -25,6 +23,7 @@ public interface personagem {
      * 
      */
     void setPosicao(int linha, int coluna);
+    public List<Integer> getPosicao();
 
     void setTime(int time);
     

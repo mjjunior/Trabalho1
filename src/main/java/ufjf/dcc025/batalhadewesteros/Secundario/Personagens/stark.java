@@ -1,26 +1,16 @@
 package ufjf.dcc025.batalhadewesteros.Secundario.Personagens;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class stark implements personagem{
 
-    
+    private List<Integer> posicao = new ArrayList<>();
     private String nome;
     private final int VIDA_MAXIMA = 60;
     private int vidaAtual;
     private final int alcanceMaximo = 1; 
     private int time = 0; 
-    
-    private void definePosicao(){
-        Random gerador = new Random();
-        int numAleatorio1, numAleatorio2;
-        
-        numAleatorio1= gerador.nextInt(10);
-        numAleatorio2 = gerador.nextInt(10);
-        
-        posicao.add(numAleatorio1);
-        posicao.add(numAleatorio2);
-    }
     
     public stark(String nome){
         if(nome != null)
@@ -28,7 +18,7 @@ public class stark implements personagem{
         this.nome = "stark";
         
         vidaAtual = VIDA_MAXIMA;
-        definePosicao();
+    
     }
     
     
