@@ -87,10 +87,9 @@ public class partida {
         for (int i = 0; i < time1.size(); i++) // inicializa as opções de movimento
             opcoes[i] = time1.get(i).getNome();
 
-        
-        /// O do While serve para poder ter a opção de voltar e escolher um outro personagem para mover
-        do {
-            int escolhaPersonagem = selecionaPersonagemMover(turno, tabuleiro, time1, time2, opcoes, jogador, timePrincipal, timeSecundario);
+        boolean jogadaValida = false;
+        while (!jogadaValida) {
+           int escolhaPersonagem = selecionaPersonagemMover(turno, tabuleiro, time1, time2, opcoes, jogador, timePrincipal, timeSecundario);
             
             if(cont == 1){
                 replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
@@ -109,7 +108,14 @@ public class partida {
                                 " mova " + selecionado.getNome() + " para uma direção:", "Turno " + turno, JOptionPane.DEFAULT_OPTION, 
                                 JOptionPane.QUESTION_MESSAGE, null, direcao, direcao[0]);
 
-                if (escolhaDirecao < 4 && tabuleiro.verificaMoverPersonagem(selecionado, escolhaDirecao)) { // se entrou aqui é pq está tudo e certo e vai encerrar o loop
+                // jogador quis voltar
+                if (escolhaDirecao == 4) {
+                    cont++;
+                    continue;
+                }
+                    
+
+                if (tabuleiro.verificaMoverPersonagem(selecionado, escolhaDirecao)) {
                     tabuleiro.movePersonagem(selecionado, escolhaDirecao);
 
                     replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
@@ -197,15 +203,13 @@ public class partida {
                             replay.salvaLog(sb.toString());
                         }
                     }
+                    jogadaValida = true; // ✅ encerra a rodada
+                } else {
+                    JOptionPane.showMessageDialog(null, "Direção inválida! Escolha um outro personagem ou posição válida.");
                 }
-
-                else if (escolhaDirecao < 4) // movimentação invalida
-                    JOptionPane.showMessageDialog(null, "Direção invalida! Escolha um outro personagem" + " para se mover ou mova para uma posição valida.");
-
-                cont++;    
+                cont++;
             }
-        } while (escolhaDirecao == 4 || !tabuleiro.verificaMoverPersonagem(selecionado, escolhaDirecao)); // caso selecione voltar ou movimente errado
-        return;
+        }
     }
 
 
