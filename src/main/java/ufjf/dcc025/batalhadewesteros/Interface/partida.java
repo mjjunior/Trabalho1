@@ -13,7 +13,7 @@ public class partida {
     public static String stringInteface(tabuleiro tabuleiro, List<personagem> time1, List<personagem> time2) { // transfora a interface em uma string
         StringBuilder sb = new StringBuilder();
 
-        /// CABEÇALHO
+        // CABEÇALHO
         sb.append("    ");
         for (int j = 0; j < 10; j++) {
             sb.append(j + "  ");
@@ -31,25 +31,31 @@ public class partida {
                     char inicial = p.getTipo().charAt(0);
                     if (p.getTime() == 2)
                         inicial = Character.toLowerCase(inicial);
-                    sb.append(inicial + " ");
+                    sb.append(" " + inicial + " ");
                 }
             }
             sb.append("\n");
         }
 
-        /// Estatisticas dos personagens;
+        // ESTATÍSTICAS DOS PERSONAGENS
         sb.append("\n===== STATUS DOS TIMES =====\n");
+        
         sb.append("Time 1:\n");
         for (personagem p : time1) {
-            sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
+            int linha = p.getLinha();
+            int coluna = p.getColuna();
+            sb.append(String.format(" - %s (%s): %d HP | Posição: (%d, %d)\n",
+                    p.getNome(), p.getTipo(), p.getVidaAtual(), linha, coluna));
         }
 
         sb.append("\nTime 2:\n");
         for (personagem p : time2) {
-
-            sb.append(String.format(" - %s (%s): %d HP\n", p.getNome(), p.getTipo(), p.getVidaAtual()));
+            int linha = p.getLinha();
+            int coluna = p.getColuna();
+            sb.append(String.format(" - %s (%s): %d HP | Posição: (%d, %d)\n",
+                    p.getNome(), p.getTipo(), p.getVidaAtual(), linha, coluna));
         }
-        // salva replay
+
         return sb.toString();
     }
 
@@ -95,7 +101,7 @@ public class partida {
                 replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                 log = "TURNO 1";
                 System.out.println(log);
-                sb.append(log);
+                sb.append(log + "\n");
                 replay.salvaLog(sb.toString());
             }
             
@@ -123,13 +129,13 @@ public class partida {
                     if(turno > 1){
                         log = "TURNO " + turno + "\n" + jogador +  " moveu " + selecionado.getNome() + " para posição " + selecionado.getPosicao();
                         System.out.println(log);
-                        sb.append(log);
+                        sb.append(log + "\n");
                         replay.salvaLog(sb.toString());
                     }
                     else{
                         log = jogador +  " moveu " + selecionado.getNome() + " para posição " + selecionado.getPosicao();
                         System.out.println(log);
-                        sb.append(log);
+                        sb.append(log + "\n");
                         replay.salvaLog(sb.toString());
                     }
                     
@@ -142,7 +148,7 @@ public class partida {
                         replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                         log = "Não havia nenhum oponente na área do ataque de " + selecionado.getNome()  + "\n";
                         System.out.println(log);
-                        sb.append(log);
+                        sb.append(log + "\n \n" );
                         replay.salvaLog(sb.toString());
                     }
 
@@ -159,7 +165,7 @@ public class partida {
                     
                             replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                             System.out.println(log);
-                            sb.append(log);
+                            sb.append(log + "\n \n");
                             replay.salvaLog(sb.toString());
                         }
                         else{
@@ -167,7 +173,7 @@ public class partida {
                             replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                             log = selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome() + "\n";
                             System.out.println(log);
-                            sb.append(log);
+                            sb.append(log + "\n \n");
                             replay.salvaLog(sb.toString());
                         }
                     }
@@ -192,18 +198,18 @@ public class partida {
                     
                             replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                             System.out.println(log);
-                            sb.append(log);
+                            sb.append(log + "\n \n");
                             replay.salvaLog(sb.toString());
                         }
                         else{
                             replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                             log = selecionado.getNome() + " atacou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
                             System.out.println(log);
-                            sb.append(log);
+                            sb.append(log + "\n \n");
                             replay.salvaLog(sb.toString());
                         }
                     }
-                    jogadaValida = true; // ✅ encerra a rodada
+                    jogadaValida = true; 
                 } else {
                     JOptionPane.showMessageDialog(null, "Direção inválida! Escolha um outro personagem ou posição válida.");
                 }

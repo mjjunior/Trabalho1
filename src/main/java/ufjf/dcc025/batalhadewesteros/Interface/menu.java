@@ -178,6 +178,7 @@ public class menu {
                 JOptionPane.showMessageDialog(null, "A equipe atual do jogador 2 é: " + time2);
             }
         }
+        JOptionPane.showMessageDialog(null, "Iniciando partida...");
         partida partida = new partida();
         partida.doisJogadores(time1, time2);
     }

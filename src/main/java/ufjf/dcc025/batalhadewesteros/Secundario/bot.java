@@ -122,7 +122,7 @@ public class bot {
             replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
             log = "TURNO " + turno + "\nOponente moveu " + p.getNome() + " para posição " + p.getPosicao();
             System.out.println(log);
-            sb.append(log);
+            sb.append(log + "\n");
             replay.salvaLog(sb.toString());
         }
 
@@ -133,7 +133,7 @@ public class bot {
                         
             replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
             log = "Não havia nenhum oponente na área do ataque de " + p.getNome()  + "\n";
-            System.out.println(log);
+            System.out.println(log + "\n \n" );
             sb.append(log);
             replay.salvaLog(sb.toString());
         }
@@ -156,7 +156,7 @@ public class bot {
 
                 replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
                 System.out.println(log);
-                sb.append(log);
+                sb.append(log + "\n \n");
                 replay.salvaLog(sb.toString());
                 break; 
             }

@@ -21,69 +21,67 @@ public class replay {
         interfac.add(interfaceAtual);
     }   
     
-    public void removeInterface(){
-        interfac.removeLast();
-    }
+    //public void removeInterface(){
+    //    interfac.removeLast();
+    //}
 
     public void salvaLog(String logAtual){
         log.add(logAtual);
     }
 
-    public void removeLog(){
-        log.removeLast();
-    }
+    //public void removeLog(){
+     //   log.removeLast();
+    //}
     
     
-    public void assistirReplay(){
+        public void assistirReplay(){
 
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();      //limpa o console
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+            try {
+                if (System.getProperty("os.name").contains("Windows")) {
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();      //limpa o console
+                } else {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                }
+            } catch (Exception e) {
+                for (int i = 0; i < 50; i++) System.out.println();
             }
-        } catch (Exception e) {
-            for (int i = 0; i < 50; i++) System.out.println();
-        }
 
 
-        
-        String[] opcoes = {"Ir para o inicio", "Próximo", "Anterior", "Pular para o final", "Sair"};
-        int escolha = JOptionPane.showOptionDialog(null, interfac.get(cont) + "\n" + "\n" + "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
-                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[4]);
+            System.out.println(log.get(cont));
+            String[] opcoes = {"Ir para o inicio", "Próximo", "Anterior", "Pular para o final", "Sair"};
+            int escolha = JOptionPane.showOptionDialog(null, interfac.get(cont) + "\n" + "\n" + "Selecione uma opção: ", "Menu Replay",  JOptionPane.DEFAULT_OPTION, 
+                            JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[4]);
 
-        System.out.println(log.get(cont));
-
-        switch (escolha) {
-            case 0:
-                cont = 0;
-                assistirReplay();
-                break;
-
-            case 1:
-                cont++;
-                assistirReplay();
-                break;
             
-            case 2:
-                cont--;
-                assistirReplay();
-                break;
-            
-            case 3:
-                cont = interfac.size() - 1;
-                assistirReplay();
-                break;
 
-            default:
-                int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do replay ? ", "Confirmação", 
-                                JOptionPane.YES_NO_OPTION);
-                if(resposta == JOptionPane.YES_OPTION)
-                    JOptionPane.showMessageDialog(null, "Encerrando...");
-                break;
+            switch (escolha) {
+                case 0:
+                    cont = 0;
+                    assistirReplay();
+                    break;
+
+                case 1:
+                    cont++;
+                    assistirReplay();
+                    break;
+                
+                case 2:
+                    cont--;
+                    assistirReplay();
+                    break;
+                
+                case 3:
+                    cont = interfac.size() - 1;
+                    assistirReplay();
+                    break;
+
+                default:
+                    menu menu = new menu();
+                    menu.menuFimPartida(this);
+                    break;
+            }
+            
         }
-        
-    }
 }
     
