@@ -57,21 +57,24 @@ public class menu {
 
             switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
             case 0:
-                stark personagem1 = new stark(null);
+                String nome = JOptionPane.showInputDialog("Digite o nome do seu personagem Stark:");
+                stark personagem1 = new stark(nome);
                 personagem1.setTime(1);
                 time.add(personagem1);
                 oponente.escolherPersonagem();
                 break;
 
             case 1:
-                lannister personagem2 = new lannister(null);
+                String nome1 = JOptionPane.showInputDialog("Digite o nome do seu personagem Lannister:");
+                lannister personagem2 = new lannister(nome1);
                 personagem2.setTime(1);
                 time.add(personagem2);
                 oponente.escolherPersonagem();
                 break;
 
             case 2:
-                targaryen personagem3 = new targaryen(null);
+                String nome2 = JOptionPane.showInputDialog("Digite o nome do seu personagem Targaryen:");
+                targaryen personagem3 = new targaryen(nome2);
                 personagem3.setTime(1);
                 time.add(personagem3);
                 oponente.escolherPersonagem();
@@ -120,19 +123,22 @@ public class menu {
 
                 switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
                 case 0:
-                    stark personagem1 = new stark(null);
+                    String nome = JOptionPane.showInputDialog("Digite o nome do seu personagem Stark:");
+                    stark personagem1 = new stark(nome);
                     personagem1.setTime(1);
                     time1.add(personagem1);
                     break;
 
                 case 1:
-                    lannister personagem2 = new lannister(null);
+                    String nome1 = JOptionPane.showInputDialog("Digite o nome do seu personagem Lannister:");
+                    lannister personagem2 = new lannister(nome1);
                     personagem2.setTime(1);
                     time1.add(personagem2);
                     break;
 
                 case 2:
-                    targaryen personagem3 = new targaryen(null);
+                    String nome2 = JOptionPane.showInputDialog("Digite o nome do seu personagem Targaryen:");
+                    targaryen personagem3 = new targaryen(nome2);
                     personagem3.setTime(1);
                     time1.add(personagem3);
                     break;
@@ -153,19 +159,22 @@ public class menu {
 
                 switch (escolha) {                           //realiza as escolhas de personagem e adiciona no time
                 case 0:
-                    stark personagem1 = new stark(null);
+                    String nome = JOptionPane.showInputDialog("Digite o nome do seu personagem Stark:");
+                    stark personagem1 = new stark(nome);
                     personagem1.setTime(2);
                     time2.add(personagem1);
                     break;
 
                 case 1:
-                    lannister personagem2 = new lannister(null);
+                    String nome1 = JOptionPane.showInputDialog("Digite o nome do seu personagem Lannister:");
+                    lannister personagem2 = new lannister(nome1);
                     personagem2.setTime(2);
                     time2.add(personagem2);
                     break;
 
-                case 2:                        
-                    targaryen personagem3 = new targaryen(null);
+                case 2:          
+                    String nome2 = JOptionPane.showInputDialog("Digite o nome do seu personagem Targaryen:");              
+                    targaryen personagem3 = new targaryen(nome2);
                     personagem3.setTime(2);
                     time2.add(personagem3);
                     break;

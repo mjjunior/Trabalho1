@@ -17,7 +17,8 @@ public class targaryen implements personagem{
         
         if(nome != null)
             this.nome = nome;
-        this.nome = "targaryen";
+        else
+            this.nome = "targaryen";
         
         vidaAtual = VIDA_MAXIMA;
    
@@ -83,7 +84,7 @@ public class targaryen implements personagem{
  
     @Override
     public String toString(){
-        return " Nome: " + nome;
+        return nome;
     }
     
         @Override

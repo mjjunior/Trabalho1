@@ -14,7 +14,8 @@ public class stark implements personagem{
     public stark(String nome){
         if(nome != null)
             this.nome = nome;
-        this.nome = "stark";
+        else
+            this.nome = "stark";
         
         vidaAtual = VIDA_MAXIMA;
     }
@@ -93,7 +94,7 @@ public class stark implements personagem{
     
     @Override
     public String toString(){
-        return " Nome: " + nome;
+        return nome;
     }
     
         @Override

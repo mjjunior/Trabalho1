@@ -16,7 +16,8 @@ public class lannister implements personagem {
         
         if(nome != null)
             this.nome = nome;
-        this.nome = "linnister";
+        else
+            this.nome = "linnister";
         
         vidaAtual = VIDA_MAXIMA;
     }
@@ -83,7 +84,7 @@ public class lannister implements personagem {
     
     @Override
     public String toString(){
-        return " Nome: " + nome;
+        return nome;
     }
 
     @Override
