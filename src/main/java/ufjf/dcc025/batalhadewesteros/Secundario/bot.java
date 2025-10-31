@@ -3,6 +3,11 @@ package ufjf.dcc025.batalhadewesteros.Secundario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
+
+import ufjf.dcc025.batalhadewesteros.Interface.replay;
+import ufjf.dcc025.batalhadewesteros.Interface.partida;
 import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.*;
 
 public class bot { 
@@ -42,7 +47,7 @@ public class bot {
     }
  
 
-    //função para ser usada na IA para encontrar o inimigo mais perto
+    
     private personagem encontraMaisPerto(personagem p, List<personagem> inimigos){
         personagem alvo = null;
         int menorDistancia = Integer.MAX_VALUE;
@@ -59,48 +64,102 @@ public class bot {
         return alvo;
     }
     
-    //agora que sei o alvo mais perto, tem que fazer ele andar ou atacar
-    public void jogar(tabuleiro t, List<personagem> inimigos){
-        for(int i=0; i < timeBot.size(); i++){
-            personagem p = timeBot.get(i);
+        
+    private personagem escolhePersonagemAtivo(List<personagem> inimigos){
+        if (timeBot.isEmpty()) return null;
 
-            personagem alvo = encontraMaisPerto(p, inimigos);
-            if(alvo == null){
-                continue; //nenhum inimigo enontrado 
-            }
+        // 50% de chance de escolher aleatoriamente, 50% o mais próximo de um inimigo
+        if (rand.nextBoolean()) {
+            return timeBot.get(rand.nextInt(timeBot.size()));
+        } else {
+            personagem melhor = null;
+            int menorDistancia = Integer.MAX_VALUE;
 
-            //primeiro tenta mover
-            int linhaP = p.getLinha();
-            int colunaP = p.getColuna();
-            int linhaA = alvo.getLinha();
-            int colunaA = alvo.getColuna();
-
-            int dir = -1;
-            if(linhaA < linhaP){
-                dir =0; //vai pra cima
-            }
-            else if(linhaA > linhaP){
-                dir = 1; // vai pra baixo
-            } else if(colunaA > colunaP){
-                dir = 2; //vai pra direita
-            } else if(colunaA < colunaP) {
-                dir = 3; //vai pra esquerda
-            }
-
-            if(t.verificaMoverPersonagem(p, dir))
-                t.movePersonagem(p, dir);
-            
-            //agora verifica se pode atacar depois do movimento
-            List<personagem> alvos = t.verificaAreaAtaque(p);
-            for(int j=0; j < alvos.size(); j++){
-                personagem possivel = alvos.get(j);
-
-                if(possivel.getTime() != p.getTime()){
-                    p.atacar(possivel);
-                    break;
+            for (personagem p : timeBot) {
+                personagem alvo = encontraMaisPerto(p, inimigos);
+                if (alvo != null) {
+                    int dist = Math.abs(p.getLinha() - alvo.getLinha()) + Math.abs(p.getColuna() - alvo.getColuna());
+                    if (dist < menorDistancia) {
+                        menorDistancia = dist;
+                        melhor = p;
+                    }
                 }
             }
-            
+
+            // se não encontrar nenhum alvo , escolhe aleatório mesmo
+            return melhor != null ? melhor : timeBot.get(rand.nextInt(timeBot.size()));
+        }
+    }
+
+   
+    public void jogar(tabuleiro t, List<personagem> inimigos, replay replay, int turno){
+        String log;
+        StringBuilder sb = new StringBuilder();
+
+        
+        personagem p = escolhePersonagemAtivo(inimigos);
+        if(p == null) return;
+
+        personagem alvo = encontraMaisPerto(p, inimigos);
+        if(alvo == null) return; // nenhum inimigo encontrado
+
+        
+        int linhaP = p.getLinha();
+        int colunaP = p.getColuna();
+        int linhaA = alvo.getLinha();
+        int colunaA = alvo.getColuna();
+
+        int dir = -1;
+        if(linhaA < linhaP) dir = 0; // cima
+        else if(linhaA > linhaP) dir = 1; // baixo
+        else if(colunaA > colunaP) dir = 2; // direita
+        else if(colunaA < colunaP) dir = 3; // esquerda
+
+        if(t.verificaMoverPersonagem(p, dir)){
+            t.movePersonagem(p, dir);
+
+            JOptionPane.showMessageDialog(null, "Oponente moveu " + p.getNome() + " para posição " + p.getPosicao());
+            replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
+            log = "TURNO " + turno + "\nOponente moveu " + p.getNome() + " para posição " + p.getPosicao();
+            System.out.println(log);
+            sb.append(log);
+            replay.salvaLog(sb.toString());
+        }
+
+        
+        List<personagem> alvos = t.verificaAreaAtaque(p);
+        if(alvos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não havia nenhum oponente na área do ataque de " + p.getNome());
+                        
+            replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
+            log = "Não havia nenhum oponente na área do ataque de " + p.getNome()  + "\n";
+            System.out.println(log);
+            sb.append(log);
+            replay.salvaLog(sb.toString());
+        }
+
+
+        for(personagem possivel : alvos){
+            if(possivel.getTime() != p.getTime()){
+                p.atacar(possivel);
+
+                if(possivel.getVidaAtual() <= 0){
+                    personagem morto = possivel;
+                    JOptionPane.showMessageDialog(null, p.getNome() + " eliminou " + morto.getNome());
+                    log = p.getNome() + " eliminou " + morto.getNome() + "\n";
+                    inimigos.remove(morto);
+                    t.removePersonagem(morto);
+                } else {
+                    JOptionPane.showMessageDialog(null, p.getNome() + " atacou " + possivel.getNome());
+                    log = p.getNome() + " atacou " + possivel.getNome() + "\n";
+                }
+
+                replay.salvaInterface(partida.stringInteface(t, inimigos, getTimeBot()));
+                System.out.println(log);
+                sb.append(log);
+                replay.salvaLog(sb.toString());
+                break; 
+            }
         }
     }
 }

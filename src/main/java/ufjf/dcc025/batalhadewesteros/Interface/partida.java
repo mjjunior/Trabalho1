@@ -10,7 +10,7 @@ import ufjf.dcc025.batalhadewesteros.Secundario.Personagens.personagem;
 
 public class partida {
 
-    private String stringInteface(tabuleiro tabuleiro, List<personagem> time1, List<personagem> time2) { // transfora a interface em uma string
+    public static String stringInteface(tabuleiro tabuleiro, List<personagem> time1, List<personagem> time2) { // transfora a interface em uma string
         StringBuilder sb = new StringBuilder();
 
         /// CABEÇALHO
@@ -232,13 +232,19 @@ public class partida {
 
             // jogada do jogador 2
             else {
-                oponente.jogar(tabuleiro, time);
+                oponente.jogar(tabuleiro, time, replay, jogada);
                 
-            }
-
-            
+            }   
             jogada++;
         }
+
+        if(time.size() == 0)
+            JOptionPane.showMessageDialog(null, "Oponente venceu!");
+        else 
+            JOptionPane.showMessageDialog(null, "Jogador venceu!");
+        
+        menu jogo = new menu();
+        jogo.menuFimPartida(replay);
     }
 
 
