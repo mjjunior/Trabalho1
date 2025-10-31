@@ -177,6 +177,31 @@ public class tabuleiro {
 
     }
 
+    public void removePersonagem(personagem p) {
+    if (p == null) return;
+
+    int linha = p.getLinha();
+    int coluna = p.getColuna();
+
+    
+    if (!dentroLimite(linha, coluna)) {
+        System.out.println("Posição fora do limite! Linha=" + linha + " Coluna=" + coluna);
+        return;
+    }
+
+    personagem atual = mapa[linha][coluna];
+
+    if (atual == null) {
+        System.out.println("A célula está vazia — personagem não encontrado no tabuleiro!");
+        return;
+    }
+
+    
+    mapa[linha][coluna] = null;
+    p.setPosicao(-1, -1);
+    
+}
+
 
 
     ///coisas/ideias antigas que podem ser uteis ainda

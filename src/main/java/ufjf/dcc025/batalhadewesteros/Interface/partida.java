@@ -142,19 +142,34 @@ public class partida {
 
                     else if (alvosDisponiveis.size() == 1) {
                         selecionado.atacar(alvosDisponiveis.getFirst());
-                        JOptionPane.showMessageDialog(null, selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome());
-                        
-                        replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
-                        log = selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome() + "\n";
-                        System.out.println(log);
-                        sb.append(log);
-                        replay.salvaLog(sb.toString());
+
+                        if(alvosDisponiveis.getFirst().getVidaAtual() <= 0){
+                            personagem morto = alvosDisponiveis.getFirst();
+                            JOptionPane.showMessageDialog(null, selecionado.getNome() + " eliminou " + morto.getNome());
+
+                            log = selecionado.getNome() + " eliminou " + morto.getNome() + "\n";
+                            time2.remove(morto);
+                            tabuleiro.removePersonagem(morto);
+                    
+                            replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                            System.out.println(log);
+                            sb.append(log);
+                            replay.salvaLog(sb.toString());
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome());
+                            replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
+                            log = selecionado.getNome() + " atacou " + alvosDisponiveis.getFirst().getNome() + "\n";
+                            System.out.println(log);
+                            sb.append(log);
+                            replay.salvaLog(sb.toString());
+                        }
                     }
 
                     else {
                         String[] alvo = new String[alvosDisponiveis.size()];
                         for (int i = 0; i < alvosDisponiveis.size(); i++)
-                            alvo[i] = time1.get(i).getNome();
+                            alvo[i] = alvosDisponiveis.get(i).getNome();
 
                         int escolhaAlvo = JOptionPane.showOptionDialog(null, stringInteface(tabuleiro, time1, time2) + "\n" +
                         "Escolha um oponente para atacar", "Turno " + turno, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, alvo, alvo[0]);
@@ -163,8 +178,12 @@ public class partida {
 
                         //se o ataque elimnou
                         if(alvosDisponiveis.get(escolhaAlvo).getVidaAtual() <= 0){
-                            log = selecionado.getNome() + " eliminou " + alvosDisponiveis.get(escolhaAlvo).getNome() + "\n";
-                            alvosDisponiveis.remove(alvosDisponiveis.get(escolhaAlvo));
+                            personagem morto = alvosDisponiveis.get(escolhaAlvo);
+
+                            log = selecionado.getNome() + " eliminou " + morto.getNome() + "\n";
+                            time2.remove(morto);
+                            tabuleiro.removePersonagem(morto);
+                    
                             replay.salvaInterface(stringInteface(tabuleiro, timePrincipal, timeSecundario));
                             System.out.println(log);
                             sb.append(log);
